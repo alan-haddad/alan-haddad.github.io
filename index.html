@@ -1,300 +1,181 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Alan Haddad - Cybersecurity and Enthusiast</title>
-
+    <title>Alan Haddad - Cybersecurity Enthusiast</title>
     <style>
-
         body {
-
             font-family: Arial, sans-serif;
-
             margin: 0;
-
             padding: 0;
-
             background-color: #f4f4f4;
-
             color: #333;
-
         }
 
         header {
-
             background-color: #0077b6;
-
             color: #fff;
-
             padding: 20px;
-
             text-align: center;
-
         }
 
         header h1 {
-
             margin: 0;
-
         }
 
         header p {
-
             font-size: 18px;
-
             margin: 5px 0;
-
         }
 
         nav {
-
             background-color: #003b5c;
-
             padding: 10px;
-
             text-align: center;
-
         }
 
         nav a {
-
             color: #fff;
-
             text-decoration: none;
-
             padding: 10px 15px;
-
             margin: 0 10px;
-
         }
 
         nav a:hover {
-
             background-color: #0077b6;
-
         }
 
         section {
-
             padding: 20px;
-
             margin: 20px;
-
             background-color: #fff;
-
             border-radius: 8px;
-
         }
 
         section h2 {
-
             color: #0077b6;
-
         }
 
         footer {
-
             text-align: center;
-
             padding: 10px;
-
             background-color: #003b5c;
-
             color: #fff;
-
         }
 
         .container {
-
             max-width: 1200px;
-
             margin: 0 auto;
-
         }
 
-        .projects, .skills, .contact {
-
+        .projects, .card-container {
             display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 20px;
-
+            flex-wrap: wrap; /* Ensures responsiveness */
+            gap: 20px; /* Adds space between the cards */
+            justify-content: space-between; /* Distributes cards evenly */
         }
 
         .card {
-
             background-color: #fff;
-
             border: 1px solid #ddd;
-
             border-radius: 8px;
-
             padding: 15px;
-
-            width: 48%;
-
+            flex: 1 1 calc(50% - 20px); /* Two cards per row */
             box-sizing: border-box;
-
+            max-width: calc(50% - 20px); /* Prevent cards from exceeding 50% width */
         }
 
         .card h3 {
-
             margin: 0;
-
             color: #0077b6;
-
         }
 
         .card p {
-
             margin: 10px 0;
-
         }
 
         @media (max-width: 768px) {
-
             .card {
-
-                width: 100%;
-
+                flex: 1 1 100%; /* Stacks cards on small screens */
+                max-width: 100%; /* Ensures full width on smaller screens */
             }
-
         }
-
     </style>
-
 </head>
-
 <body>
-
- 
-
     <header>
-
         <h1>Alan Haddad</h1>
-
         <p>Cybersecurity Enthusiast | Air Force Officer</p>
-
     </header>
 
- 
-
     <nav>
-
         <a href="#about">About Me</a>
-
         <a href="#projects">Projects</a>
-
         <a href="#skills">Skills</a>
-
         <a href="#contact">Contact</a>
-
     </nav>
 
- 
-
     <div class="container">
-
         <!-- About Me Section -->
-
         <section id="about">
-
             <h2>About Me</h2>
-
             <p>
-        With a background in leadership and process management, I am transitioning into the field of cybersecurity, bringing with me a wealth of experience in strategic operations, risk management, and team coordination. Over the past few years, I’ve progressed through roles at Cleveland-Cliffs and the United States Air Force, where I learned how to drive operational efficiency, foster innovation, and lead teams through complex challenges. These experiences have helped me develop valuable soft skills in leadership, problem-solving, and communication—skills that I’m now applying to the ever-evolving world of cybersecurity.
-    </p>
-    <p>
-        I’m deeply committed to continuous learning and improvement, always seeking out new opportunities to expand my knowledge and refine my skills. My training as a Cyber Effects Officer in the Air Force has further sharpened my ability to navigate strategic challenges, and I’m eager to apply this mindset to secure digital systems and contribute to organizational success.
-    </p>
+                With a background in leadership and process management, I am transitioning into the field of cybersecurity, bringing with me a wealth of experience in strategic operations, risk management, and team coordination. Over the past few years, I’ve progressed through roles at Cleveland-Cliffs and the United States Air Force, where I learned how to drive operational efficiency, foster innovation, and lead teams through complex challenges. These experiences have helped me develop valuable soft skills in leadership, problem-solving, and communication—skills that I’m now applying to the ever-evolving world of cybersecurity.
+            </p>
+            <p>
+                I’m deeply committed to continuous learning and improvement, always seeking out new opportunities to expand my knowledge and refine my skills. My training as a Cyber Effects Officer in the Air Force has further sharpened my ability to navigate strategic challenges, and I’m eager to apply this mindset to secure digital systems and contribute to organizational success.
+            </p>
         </section>
-
- 
 
         <!-- Projects Section -->
-
         <section id="projects">
-
             <h2>Projects</h2>
-
             <div class="projects">
-
                 <div class="card">
-
                     <h3>Home Lab Setup</h3>
-
                     <p>Explore my home lab where I simulate real-world attack scenarios using tools like Kali Linux and Burp Suite. I also deploy cloud-based infrastructure using AWS and automate tasks using Terraform and CloudFormation.</p>
-
                     <a href="#">View Project</a>
-
                 </div>
-
                 <div class="card">
-
                     <h3>Cloud Security Automation</h3>
-
                     <p>Learn about the cloud security projects I’ve built using AWS, Terraform, and other DevOps tools. I automate deployments and implement security controls in the cloud to improve security posture.</p>
-
                     <a href="#">View Project</a>
-
                 </div>
-
             </div>
-
         </section>
 
-       <!-- Skills Section -->
-<section id="skills">
-    <h2>Professional Profile</h2>
-    <div class="card-container">
-        <div class="card">
-            <h3>Skills</h3>
-            <p>Information security, vulnerability assessment, penetration testing, security architecture and design, reconnaissance.</p>
-        </div>
-        <div class="card">
-            <h3>Certifications</h3>
-            <p>CompTIA Security+, AWS Certified Cloud Practitioner, and SANS GPEN.</p>
-            <p>Upcoming certifications: SANS FOR508 (GCFA), SEC542 (GWAPT), and SEC660 (GXPN).</p>
-        </div>
-    </div>
-</section>
-      
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>Professional Profile</h2>
+            <div class="card-container">
+                <div class="card">
+                    <h3>Skills</h3>
+                    <p>Information security, vulnerability assessment, penetration testing, security architecture and design, reconnaissance.</p>
+                </div>
+                <div class="card">
+                    <h3>Certifications</h3>
+                    <p>CompTIA Security+, AWS Certified Cloud Practitioner, and SANS GPEN.</p>
+                    <p>Upcoming certifications: SANS FOR508 (GCFA), SEC542 (GWAPT), and SEC660 (GXPN).</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Contact Section -->
-
         <section id="contact">
-
             <h2>Contact Me</h2>
-
             <p>If you're interested in discussing cybersecurity or potential collaborations, feel free to reach out!</p>
-
             <p>LinkedIn: <a href="https://linkedin.com/in/alanhaddad9">linkedin.com/in/alanhaddad9</a></p>
-
             <p>GitHub: <a href="https://github.com/alan-haddad">github.com/alan-haddad</a></p>
-
         </section>
-
     </div>
-
- 
 
     <footer>
-
         <p>&copy; 2024 Alan Haddad. All rights reserved.</p>
-
     </footer>
-
- 
-
 </body>
-
 </html>
+
 
 
 			
