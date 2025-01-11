@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Security Automation - Terraform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #0077b6;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #003b5c;
+            color: #fff;
+        }
+
+        a {
+            color: #0077b6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cloud Security Automation</h1>
+    </header>
+
+    <section>
+        <h2>About This Project</h2>
+        <p>This Terraform script automates the deployment of a secure and scalable cloud environment on AWS. It provisions essential resources such as VPCs, subnets, security groups, and EC2 instances to create a functional infrastructure for a web server.</p>
+    </section>
+
+    <section>
+        <h2>Key Features</h2>
+        <ul>
+            <li>Automated deployment of a Virtual Private Cloud (VPC).</li>
+            <li>Creation of public subnets and an Internet Gateway.</li>
+            <li>Launch of an EC2 instance with SSH and HTTP access.</li>
+            <li>Integration of a security group to enforce access policies.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Terraform Code Snippet</h2>
+        <pre>
+# Example from the script
+resource "aws_instance" "web_server" {
+  ami           = "ami-12345678"
+  instance_type = "t2.micro"
+  subnet_id     = aws_subnet.public.id
+  key_name      = "your-key-pair"
+  tags = {
+    Name = "WebServer"
+  }
+}
+        </pre>
+        <p><a href="https://github.com/alan-haddad/terraform-project">View Full Script on GitHub</a></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Alan Haddad. All rights reserved.</p>
+    </footer>
+</body>
+</html>
