@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloud Security Automation - Terraform</title>
+    <title>Cloud Deployment Automation - Terraform</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,25 +51,32 @@
         a:hover {
             text-decoration: underline;
         }
+
+        .center-link {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Cloud Security Automation</h1>
+        <h1>Cloud Deployment Automation</h1>
     </header>
 
     <section>
         <h2>About This Project</h2>
-        <p>This Terraform script mirrors the structure of my cybersecurity home lab, automating the deployment of resources such as a VPC, EC2 instances for the web server and Nessus server, and an S3 bucket for centralized logging. It demonstrates a secure, scalable, and practical cloud environment designed for learning and showcasing cloud security automation.</p>
+        <p>
+            This Terraform script automates the deployment of a comprehensive cybersecurity home lab within AWS. Designed to reflect real-world cloud infrastructure, it demonstrates skills in Infrastructure as Code (IaC), secure resource management, and scalability. The script provisions key components including a Virtual Private Cloud (VPC), EC2 instances for a web server, attack platform, and Nessus vulnerability scanner, as well as an S3 bucket for centralized log storage.
+        </p>
     </section>
 
     <section>
         <h2>Key Features</h2>
         <ul>
-            <li>Automated deployment of a Virtual Private Cloud (VPC) and subnets.</li>
-            <li>Provisioning of EC2 instances for the web server and Nessus vulnerability scanner.</li>
-            <li>Creation of an S3 bucket for centralized log storage and integration with other tools.</li>
-            <li>Security group configurations to enforce controlled access.</li>
+            <li>Automated deployment of a Virtual Private Cloud (VPC) and subnet architecture.</li>
+            <li>Provisioning of EC2 instances for a web server, Nessus vulnerability scanner, and attack platform.</li>
+            <li>Centralized log storage using an S3 bucket, with automated log forwarding from the web server.</li>
+            <li>Dynamic security group configurations to restrict SSH and service access to specific IP addresses.</li>
+            <li>Scalable and modular infrastructure suitable for real-world learning and demonstrations.</li>
         </ul>
     </section>
 
@@ -87,8 +94,11 @@ resource "aws_instance" "web_server" {
   }
 }
         </pre>
-        <p><a href="https://raw.githubusercontent.com/alan-haddad/alan-haddad.github.io/refs/heads/main/terraform-scripts/main.tf" target="_blank">View Full Project on GitHub</a></p>
-        <p style="text-align: center;"><a href="index.html">Back to Home</a></p>
+        <p class="center-link"><a href="https://raw.githubusercontent.com/alan-haddad/alan-haddad.github.io/refs/heads/main/terraform-scripts/main.tf" target="_blank">View Full Project on GitHub</a></p>
+    </section>
+
+    <section class="center-link">
+        <p><a href="index.html">Back to Home</a></p>
     </section>
 
     <footer>
