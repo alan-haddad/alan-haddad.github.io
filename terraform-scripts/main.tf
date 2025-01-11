@@ -62,11 +62,15 @@ resource "aws_route_table_association" "public" {
 # Create an S3 Bucket for Logs
 resource "aws_s3_bucket" "log_bucket" {
   bucket = "cybersecurity-lab-logs-${random_id.bucket_id.hex}" # Unique bucket name
-  acl    = "private"
-
   tags = {
     Name = "CybersecurityLabLogs"
   }
+}
+
+# Attach ACL to the S3 Bucket
+resource "aws_s3_bucket_acl" "log_bucket_acl" {
+  bucket = aws_s3_bucket.log_bucket.id
+  acl    = "private"
 }
 
 # IAM Role for Web Server
@@ -123,7 +127,7 @@ resource "aws_security_group" "web_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${chomp(data.http.my_ip.body)}/32"] # SSH restricted to user's IP
+    cidr_blocks = ["${chomp(data.http.my_ip.response_body)}/32"] # SSH restricted to user's IP
   }
 
   ingress {
@@ -145,7 +149,7 @@ resource "aws_security_group" "web_sg" {
   }
 }
 
-# Web Server Instance with Log Sync to S3
+# Web Server Instance
 resource "aws_instance" "web_server" {
   ami           = "ami-12345678" # Replace with a valid Ubuntu AMI
   instance_type = "t2.micro"
@@ -157,22 +161,6 @@ resource "aws_instance" "web_server" {
   tags = {
     Name = "WebServer"
   }
-
-  provisioner "remote-exec" {
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      private_key = file("~/.ssh/your-private-key.pem")
-      host        = self.public_ip
-    }
-
-    inline = [
-      "sudo apt update && sudo apt install -y apache2 awscli",
-      "sudo mkdir -p /var/log/apache2 && sudo chmod -R 755 /var/log/apache2",
-      "(crontab -l ; echo '*/5 * * * * aws s3 sync /var/log/apache2 s3://${aws_s3_bucket.log_bucket.bucket}') | crontab -",
-      "sudo systemctl start apache2 && sudo systemctl enable apache2"
-    ]
-  }
 }
 
 # Security Group for Nessus Server
@@ -183,14 +171,14 @@ resource "aws_security_group" "nessus_sg" {
     from_port   = 8834
     to_port     = 8834
     protocol    = "tcp"
-    cidr_blocks = ["${chomp(data.http.my_ip.body)}/32"] # Nessus UI access restricted
+    cidr_blocks = ["${chomp(data.http.my_ip.response_body)}/32"] # Nessus UI access restricted
   }
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${chomp(data.http.my_ip.body)}/32"] # SSH restricted to user's IP
+    cidr_blocks = ["${chomp(data.http.my_ip.response_body)}/32"] # SSH restricted to user's IP
   }
 
   egress {
@@ -226,7 +214,7 @@ resource "aws_security_group" "attack_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${chomp(data.http.my_ip.body)}/32"] # SSH restricted to user's IP
+    cidr_blocks = ["${chomp(data.http.my_ip.response_body)}/32"] # SSH restricted to user's IP
   }
 
   egress {
