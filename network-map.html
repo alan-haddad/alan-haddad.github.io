@@ -55,17 +55,73 @@
         a:hover {
             text-decoration: underline;
         }
+
+        .description {
+            text-align: left;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .description h3 {
+            color: #0077b6;
+        }
+
+        .description p {
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .description ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .description ul li {
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Cybersecurity Home Lab</h1>
+        <h1>Lab Setup</h1>
     </header>
 
     <section>
-        <h2>Lab Setup</h2>
+        <h2>Network Map</h2>
         <p>This network map illustrates the design and components of my cybersecurity home lab, including the attack platform, web server, Nessus server, S3 bucket, and Sumo Logic integration.</p>
         <img src="images/Home_lab.drawio.png" alt="Cybersecurity Home Lab Network Map">
+
+        <div class="description">
+            <h3>Lab Setup Process</h3>
+            <p>Over the past several days, I have worked on designing and implementing this cybersecurity home lab. Below are the key steps taken, challenges encountered, and solutions implemented:</p>
+
+            <h4>Key Components</h4>
+            <ul>
+                <li><strong>Attack Platform:</strong> A Kali Linux instance used to simulate attacks and test vulnerabilities on the web server.</li>
+                <li><strong>Web Server:</strong> A vulnerable web application (DVWA) configured to collect logs and send them to an S3 bucket.</li>
+                <li><strong>Nessus Server:</strong> Installed to perform vulnerability scans on the web server.</li>
+                <li><strong>S3 Bucket:</strong> Collects and stores logs from the web server for analysis.</li>
+                <li><strong>Sumo Logic:</strong> Configured to ingest logs from the S3 bucket for centralized monitoring and analysis.</li>
+            </ul>
+
+            <h4>Challenges and Solutions</h4>
+            <ul>
+                <li><strong>Kali Linux Setup:</strong> Initial configurations were lost when restarting the Docker container. <em>Solution:</em> Committed changes to a custom Docker image to persist configurations.</li>
+                <li><strong>Web Server Logging:</strong> Logs were not correctly routed to the S3 bucket. <em>Solution:</em> Updated Apache configurations and verified sync using the AWS CLI.</li>
+                <li><strong>Nessus Installation:</strong> The Nessus installation on Amazon Linux failed. <em>Solution:</em> Launched a new Ubuntu instance and successfully installed Nessus.</li>
+                <li><strong>Sumo Logic Integration:</strong> Logs initially didn’t appear in Sumo Logic. <em>Solution:</em> Verified S3 permissions and configured the Sumo Logic ingestor correctly.</li>
+            </ul>
+
+            <h4>Future Enhancements</h4>
+            <ul>
+                <li>Integrate additional tools, such as intrusion detection systems (e.g., Snort or Suricata).</li>
+                <li>Automate infrastructure setup using Terraform for scalability and reproducibility.</li>
+                <li>Simulate advanced attack scenarios for in-depth vulnerability analysis.</li>
+            </ul>
+        </div>
+
         <p><a href="index.html">Back to Home</a></p>
     </section>
 
@@ -74,3 +130,4 @@
     </footer>
 </body>
 </html>
+
