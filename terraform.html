@@ -60,16 +60,16 @@
 
     <section>
         <h2>About This Project</h2>
-        <p>This Terraform script automates the deployment of a secure and scalable cloud environment on AWS. It provisions essential resources such as VPCs, subnets, security groups, and EC2 instances to create a functional infrastructure for a web server.</p>
+        <p>This Terraform script mirrors the structure of my cybersecurity home lab, automating the deployment of resources such as a VPC, EC2 instances for the web server and Nessus server, and an S3 bucket for centralized logging. It demonstrates a secure, scalable, and practical cloud environment designed for learning and showcasing cloud security automation.</p>
     </section>
 
     <section>
         <h2>Key Features</h2>
         <ul>
-            <li>Automated deployment of a Virtual Private Cloud (VPC).</li>
-            <li>Creation of public subnets and an Internet Gateway.</li>
-            <li>Launch of an EC2 instance with SSH and HTTP access.</li>
-            <li>Integration of a security group to enforce access policies.</li>
+            <li>Automated deployment of a Virtual Private Cloud (VPC) and subnets.</li>
+            <li>Provisioning of EC2 instances for the web server and Nessus vulnerability scanner.</li>
+            <li>Creation of an S3 bucket for centralized log storage and integration with other tools.</li>
+            <li>Security group configurations to enforce controlled access.</li>
         </ul>
     </section>
 
@@ -87,7 +87,7 @@ resource "aws_instance" "web_server" {
   }
 }
         </pre>
-        <p><a href="https://raw.githubusercontent.com/alan-haddad/alan-haddad.github.io/refs/heads/main/terraform-scripts/main.tf" target="_blank">View Full Project on GitHub</a></p>
+        <p><a href="https://github.com/alan-haddad/terraform-project" target="_blank">View Full Project on GitHub</a></p>
         <p style="text-align: center;"><a href="index.html">Back to Home</a></p>
     </section>
 
