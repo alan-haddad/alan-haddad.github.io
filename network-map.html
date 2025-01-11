@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cybersecurity Home Lab - Network Map</title>
+    <title>Cybersecurity Home Lab</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -89,29 +89,28 @@
     </header>
 
     <section>
-        <h2>Network Map</h2>
         <p>This network map illustrates the design and components of my cybersecurity home lab, including the attack platform, web server, Nessus server, S3 bucket, and Sumo Logic integration.</p>
         <img src="images/Home_lab.drawio.png" alt="Cybersecurity Home Lab Network Map">
 
         <div class="description">
             <h3>Lab Setup Process</h3>
-            <p>Over the past several days, I have worked on designing and implementing this cybersecurity home lab. Below are the key steps taken, challenges encountered, and solutions implemented:</p>
+            <p>The primary goal of this cybersecurity home lab is to showcase my skills, technical knowledge, and passion for continuous learning and improvement. This lab serves as a platform to demonstrate my ability to configure, integrate, and analyze diverse security tools while addressing real-world challenges.</p>
 
             <h4>Key Components</h4>
             <ul>
-                <li><strong>Attack Platform:</strong> A Kali Linux instance used to simulate attacks and test vulnerabilities on the web server.</li>
-                <li><strong>Web Server:</strong> A vulnerable web application (DVWA) configured to collect logs and send them to an S3 bucket.</li>
-                <li><strong>Nessus Server:</strong> Installed to perform vulnerability scans on the web server.</li>
-                <li><strong>S3 Bucket:</strong> Collects and stores logs from the web server for analysis.</li>
-                <li><strong>Sumo Logic:</strong> Configured to ingest logs from the S3 bucket for centralized monitoring and analysis.</li>
+                <li><strong>Attack Platform:</strong> A Kali Linux instance running as a Docker container on an EC2 instance. Configured with tools such as Nmap and Metasploit to simulate attacks on the web server.</li>
+                <li><strong>Web Server:</strong> A vulnerable web application (DVWA) hosted on an Ubuntu EC2 instance. Configured with Apache2 and MySQL, with logs forwarded to an S3 bucket using AWS CLI and cron jobs.</li>
+                <li><strong>Nessus Server:</strong> Installed on a separate Ubuntu EC2 instance. Used for conducting vulnerability scans and identifying critical risks on the web server.</li>
+                <li><strong>S3 Bucket:</strong> Configured to store Apache logs from the web server. Integrated with the Sumo Logic ingestor for log analysis.</li>
+                <li><strong>Sumo Logic:</strong> Configured to ingest and analyze logs from the S3 bucket. Provides dashboards and alerts for monitoring security events.</li>
             </ul>
 
             <h4>Challenges and Solutions</h4>
             <ul>
-                <li><strong>Kali Linux Setup:</strong> Initial configurations were lost when restarting the Docker container. <em>Solution:</em> Committed changes to a custom Docker image to persist configurations.</li>
-                <li><strong>Web Server Logging:</strong> Logs were not correctly routed to the S3 bucket. <em>Solution:</em> Updated Apache configurations and verified sync using the AWS CLI.</li>
-                <li><strong>Nessus Installation:</strong> The Nessus installation on Amazon Linux failed. <em>Solution:</em> Launched a new Ubuntu instance and successfully installed Nessus.</li>
-                <li><strong>Sumo Logic Integration:</strong> Logs initially didn’t appear in Sumo Logic. <em>Solution:</em> Verified S3 permissions and configured the Sumo Logic ingestor correctly.</li>
+                <li><strong>Kali Linux Setup:</strong> Initial configurations were lost when restarting the Docker container. <em>Solution:</em> Committed changes to a custom Docker image to persist configurations and installed essential tools like Nmap and Metasploit.</li>
+                <li><strong>Web Server Logging:</strong> Logs were not correctly routed to the S3 bucket. <em>Solution:</em> Updated Apache configurations to log to a specific directory and automated synchronization to S3 using a cron job.</li>
+                <li><strong>Nessus Installation:</strong> The Nessus installation failed on Amazon Linux due to incompatibility. <em>Solution:</em> Launched a new Ubuntu instance, installed Nessus successfully, and verified scans.</li>
+                <li><strong>Sumo Logic Integration:</strong> Logs initially didn’t appear in Sumo Logic. <em>Solution:</em> Verified S3 permissions, updated the ingestor configuration, and ran test queries to confirm log ingestion.</li>
             </ul>
 
             <h4>Future Enhancements</h4>
@@ -126,8 +125,9 @@
     </section>
 
     <footer>
-        <p>&copy; 2025 Alan Haddad. All rights reserved.</p>
+        <p>&copy; 2024 Alan Haddad. All rights reserved.</p>
     </footer>
 </body>
 </html>
+
 
