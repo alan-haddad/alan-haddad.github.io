@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- OWASP Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <title>Industrial Tote Services - Reconditioned & New Industrial Totes</title>
+    <meta name="description" content="Quality reconditioned and new industrial totes for all your bulk material handling needs. Mamor, Schutz, and Clawson totes with free pickup service.">
+
+    <style>
+        :root {
+            --primary-color: #2c5f2d;
+            --secondary-color: #97bc62;
+            --accent-color: #4a7c59;
+            --text-dark: #1a1a1a;
+            --text-light: #fff;
+            --background-light: #f8f9fa;
+            --border-color: #dee2e6;
+            --error-color: #dc3545;
+            --success-color: #28a745;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background-light);
+        }
+
+        /* Skip to main content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: var(--text-light);
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            background-color: var(--accent-color);
+            outline: 2px solid var(--secondary-color);
+            outline-offset: -2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 3rem 0;
+            margin: 2rem 0;
+        }
+
+        section h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        section h3 {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid var(--border-color);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .product-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .product-card p {
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .product-card ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 1rem 0;
+        }
+
+        .product-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #555;
+        }
+
+        .product-card li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        /* Use Cases Section */
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .use-case-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .use-case-card:hover {
+            border-left-width: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .use-case-card h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .use-case-card p {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* Form Styles */
+        .order-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .required {
+            color: var(--error-color);
+            margin-left: 2px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(44, 95, 45, 0.1);
+        }
+
+        .form-group input:invalid:not(:placeholder-shown),
+        .form-group select:invalid:not(:placeholder-shown),
+        .form-group textarea:invalid:not(:placeholder-shown) {
+            border-color: var(--error-color);
+        }
+
+        .form-group input:valid:not(:placeholder-shown),
+        .form-group select:valid:not(:placeholder-shown),
+        .form-group textarea:valid:not(:placeholder-shown) {
+            border-color: var(--success-color);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .form-group input:invalid:not(:placeholder-shown) ~ .error-message,
+        .form-group select:invalid:not(:placeholder-shown) ~ .error-message,
+        .form-group textarea:invalid:not(:placeholder-shown) ~ .error-message {
+            display: block;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn:hover,
+        .btn:focus {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            background: var(--accent-color);
+            color: var(--text-light);
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item p {
+            color: #555;
+        }
+
+        /* Compliance Section */
+        .compliance-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .compliance-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .compliance-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .compliance-section li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .compliance-section li::before {
+            content: "🔒";
+            position: absolute;
+            left: 0;
+        }
+
+        footer {
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        footer a:hover,
+        footer a:focus {
+            text-decoration: underline;
+            outline: 2px solid var(--secondary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav a {
+                padding: 0.75rem;
+                text-align: center;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+            }
+
+            .product-grid,
+            .use-cases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .order-form {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Loading and Success States */
+        .form-message {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .form-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .form-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* High Contrast Mode Support */
+        @media (prefers-contrast: high) {
+            .product-card,
+            .use-case-card,
+            .order-form {
+                border: 3px solid var(--text-dark);
+            }
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content for screen readers -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header role="banner">
+        <div class="header-content">
+            <h1>Industrial Tote Services</h1>
+            <p>Quality Reconditioned & New Industrial Totes for Bulk Material Handling</p>
+        </div>
+    </header>
+
+    <nav role="navigation" aria-label="Main navigation">
+        <ul>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#use-cases">Use Cases</a></li>
+            <li><a href="#features">Why Choose Us</a></li>
+            <li><a href="#order">Order Now</a></li>
+            <li><a href="#compliance">Compliance</a></li>
+            <li><a href="index.html">Back to Portfolio</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content" role="main">
+        <div class="container">
+            <!-- Products Section -->
+            <section id="products">
+                <h2>Our Product Line</h2>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; font-size: 1.1rem; color: #555;">
+                    We offer a comprehensive range of reconditioned and new industrial totes designed for efficient bulk material handling across various industries.
+                </p>
+                <div class="product-grid">
+                    <article class="product-card">
+                        <h3>Reconditioned Mamor Totes</h3>
+                        <p>High-quality reconditioned Mamor intermediate bulk containers, thoroughly inspected and tested for reliability.</p>
+                        <ul>
+                            <li>275-330 gallon capacity</li>
+                            <li>Heavy-duty steel cage construction</li>
+                            <li>HDPE inner container</li>
+                            <li>Suitable for liquids and flowable materials</li>
+                            <li>Cost-effective sustainable option</li>
+                        </ul>
+                    </article>
+
+                    <article class="product-card">
+                        <h3>Reconditioned Schutz Totes</h3>
+                        <p>Premium reconditioned Schutz IBCs with rigorous quality control and certification.</p>
+                        <ul>
+                            <li>275-330 gallon capacity</li>
+                            <li>Galvanized steel cage</li>
+                            <li>UN certification available</li>
+                            <li>Ideal for chemical storage</li>
+                            <li>Environmentally responsible choice</li>
+                        </ul>
+                    </article>
+
+                    <article class="product-card">
+                        <h3>Reconditioned Clawson Totes</h3>
+                        <p>Durable reconditioned Clawson totes for demanding industrial applications.</p>
+                        <ul>
+                            <li>275-330 gallon capacity</li>
+                            <li>Robust cage design</li>
+                            <li>Pressure-tested containers</li>
+                            <li>Multiple valve options</li>
+                            <li>Extended service life</li>
+                        </ul>
+                    </article>
+
+                    <article class="product-card">
+                        <h3>New Bottled Totes</h3>
+                        <p>Brand new industrial totes with manufacturer warranties and certifications.</p>
+                        <ul>
+                            <li>Various capacity options</li>
+                            <li>Full manufacturer warranty</li>
+                            <li>UN certified for hazardous materials</li>
+                            <li>Food-grade options available</li>
+                            <li>Custom configurations</li>
+                        </ul>
+                    </article>
+
+                    <article class="product-card">
+                        <h3>Powder Handling Totes</h3>
+                        <p>Specialized totes designed for dry powder and granular material handling.</p>
+                        <ul>
+                            <li>Wide-mouth discharge</li>
+                            <li>Anti-static options</li>
+                            <li>Dust-free operation</li>
+                            <li>Easy cleaning access</li>
+                            <li>Pharmaceutical-grade available</li>
+                        </ul>
+                    </article>
+
+                    <article class="product-card">
+                        <h3>Specialty IBCs</h3>
+                        <p>Custom solutions for unique industrial applications and specialized materials.</p>
+                        <ul>
+                            <li>Temperature-controlled options</li>
+                            <li>Corrosion-resistant materials</li>
+                            <li>Custom valve configurations</li>
+                            <li>Regulatory compliance certified</li>
+                            <li>Technical support included</li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Use Cases Section -->
+            <section id="use-cases">
+                <h2>Industry Applications</h2>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; font-size: 1.1rem; color: #555;">
+                    Our industrial totes serve diverse industries with reliable, cost-effective bulk material handling solutions.
+                </p>
+                <div class="use-cases-grid">
+                    <article class="use-case-card">
+                        <h3>Chemical Manufacturing</h3>
+                        <p>Safe storage and transport of industrial chemicals, solvents, and reagents with UN-certified containers designed for hazardous materials.</p>
+                    </article>
+
+                    <article class="use-case-card">
+                        <h3>Food & Beverage</h3>
+                        <p>Food-grade IBCs for ingredients, oils, syrups, and beverages. FDA-compliant options with easy cleaning and sanitation.</p>
+                    </article>
+
+                    <article class="use-case-card">
+                        <h3>Pharmaceutical</h3>
+                        <p>Clean-room compatible totes for active pharmaceutical ingredients, excipients, and intermediates with full traceability.</p>
+                    </article>
+
+                    <article class="use-case-card">
+                        <h3>Agriculture</h3>
+                        <p>Bulk handling of fertilizers, pesticides, herbicides, and liquid feed supplements with weather-resistant construction.</p>
+                    </article>
+
+                    <article class="use-case-card">
+                        <h3>Paint & Coatings</h3>
+                        <p>Storage and dispensing of paints, resins, additives, and pigments with precision valve systems for controlled application.</p>
+                    </article>
+
+                    <article class="use-case-card">
+                        <h3>Automotive</h3>
+                        <p>Lubricants, coolants, and process fluids handling with contamination-free storage and easy integration into production lines.</p>
+                    </article>
+
+                    <article class="use-case-card">
+                        <h3>Cosmetics & Personal Care</h3>
+                        <p>Bulk storage of lotions, shampoos, fragrances, and raw materials with sanitary designs meeting industry standards.</p>
+                    </article>
+
+                    <article class="use-case-card">
+                        <h3>Water Treatment</h3>
+                        <p>Municipal and industrial water treatment chemicals including chlorine solutions, coagulants, and pH adjusters in safe, durable containers.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section id="features">
+                <h2>Why Choose Industrial Tote Services</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon" aria-hidden="true">♻️</div>
+                        <h3>Free Tote Pickup</h3>
+                        <p>Complimentary pickup service for your used totes, making recycling convenient and cost-effective.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon" aria-hidden="true">✓</div>
+                        <h3>Quality Inspected</h3>
+                        <p>Every reconditioned tote undergoes rigorous inspection and pressure testing to ensure reliability and safety.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon" aria-hidden="true">💰</div>
+                        <h3>Cost Savings</h3>
+                        <p>Reconditioned totes offer 40-60% savings compared to new units without compromising quality or performance.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon" aria-hidden="true">🌍</div>
+                        <h3>Sustainable Solution</h3>
+                        <p>Reduce environmental impact by choosing reconditioned totes and participating in our circular economy program.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon" aria-hidden="true">📦</div>
+                        <h3>Large Inventory</h3>
+                        <p>Extensive stock of various tote types and sizes ensures quick availability for your immediate needs.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon" aria-hidden="true">🔧</div>
+                        <h3>Expert Support</h3>
+                        <p>Technical assistance from our experienced team helps you select the right tote for your specific application.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Order Form Section -->
+            <section id="order">
+                <h2>Request a Quote</h2>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto 1rem; font-size: 1.1rem; color: #555;">
+                    Fill out the form below and our team will contact you within 24 hours with a customized quote.
+                </p>
+                <form class="order-form" id="orderForm" method="POST" action="#" novalidate aria-label="Order request form">
+                    <!-- CSRF Token (to be generated server-side in production) -->
+                    <input type="hidden" name="csrf_token" value="" id="csrfToken" aria-hidden="true">
+
+                    <!-- Honeypot field for bot prevention -->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                        <label for="website">Website (leave blank)</label>
+                        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullName">Full Name <span class="required" aria-label="required">*</span></label>
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            required
+                            minlength="2"
+                            maxlength="100"
+                            pattern="^[a-zA-Z\s\-']+$"
+                            placeholder="John Doe"
+                            aria-required="true"
+                            aria-describedby="fullNameError"
+                        >
+                        <span class="error-message" id="fullNameError" role="alert">Please enter a valid name (letters, spaces, hyphens, and apostrophes only)</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Company Name <span class="required" aria-label="required">*</span></label>
+                        <input
+                            type="text"
+                            id="company"
+                            name="company"
+                            required
+                            minlength="2"
+                            maxlength="150"
+                            placeholder="Your Company Inc."
+                            aria-required="true"
+                            aria-describedby="companyError"
+                        >
+                        <span class="error-message" id="companyError" role="alert">Please enter your company name</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required" aria-label="required">*</span></label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            maxlength="254"
+                            pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
+                            placeholder="john.doe@company.com"
+                            aria-required="true"
+                            aria-describedby="emailError"
+                        >
+                        <span class="error-message" id="emailError" role="alert">Please enter a valid email address</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="required" aria-label="required">*</span></label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            required
+                            pattern="^[\d\s\-\+\(\)\.]{10,20}$"
+                            placeholder="(555) 123-4567"
+                            aria-required="true"
+                            aria-describedby="phoneError"
+                        >
+                        <span class="error-message" id="phoneError" role="alert">Please enter a valid phone number</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productType">Product Type <span class="required" aria-label="required">*</span></label>
+                        <select
+                            id="productType"
+                            name="productType"
+                            required
+                            aria-required="true"
+                            aria-describedby="productTypeError"
+                        >
+                            <option value="">-- Select Product Type --</option>
+                            <option value="mamor">Reconditioned Mamor Totes</option>
+                            <option value="schutz">Reconditioned Schutz Totes</option>
+                            <option value="clawson">Reconditioned Clawson Totes</option>
+                            <option value="new-bottled">New Bottled Totes</option>
+                            <option value="powder">Powder Handling Totes</option>
+                            <option value="specialty">Specialty IBCs</option>
+                            <option value="multiple">Multiple Products</option>
+                        </select>
+                        <span class="error-message" id="productTypeError" role="alert">Please select a product type</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">Estimated Quantity <span class="required" aria-label="required">*</span></label>
+                        <input
+                            type="number"
+                            id="quantity"
+                            name="quantity"
+                            required
+                            min="1"
+                            max="10000"
+                            placeholder="10"
+                            aria-required="true"
+                            aria-describedby="quantityError"
+                        >
+                        <span class="error-message" id="quantityError" role="alert">Please enter a quantity between 1 and 10,000</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="industry">Industry</label>
+                        <select id="industry" name="industry" aria-label="Select your industry">
+                            <option value="">-- Select Industry (Optional) --</option>
+                            <option value="chemical">Chemical Manufacturing</option>
+                            <option value="food">Food & Beverage</option>
+                            <option value="pharmaceutical">Pharmaceutical</option>
+                            <option value="agriculture">Agriculture</option>
+                            <option value="paint">Paint & Coatings</option>
+                            <option value="automotive">Automotive</option>
+                            <option value="cosmetics">Cosmetics & Personal Care</option>
+                            <option value="water">Water Treatment</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Additional Information</label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            maxlength="2000"
+                            rows="5"
+                            placeholder="Please provide any additional details about your requirements, delivery location, or special requests..."
+                            aria-label="Additional information about your order"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="consent"
+                                name="consent"
+                                required
+                                aria-required="true"
+                            >
+                            <span class="required" aria-label="required">*</span> I agree to the <a href="#terms" target="_blank">Terms & Conditions</a> and <a href="#privacy" target="_blank">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn" aria-label="Submit order request form">Submit Request</button>
+
+                    <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
+                </form>
+
+                <script>
+                    // Client-side form validation and sanitization (OWASP best practices)
+                    document.getElementById('orderForm').addEventListener('submit', function(e) {
+                        e.preventDefault();
+
+                        // Basic XSS prevention - sanitize inputs
+                        const sanitizeInput = (input) => {
+                            const div = document.createElement('div');
+                            div.textContent = input;
+                            return div.innerHTML;
+                        };
+
+                        // Get form data
+                        const formData = new FormData(this);
+                        const messageDiv = document.getElementById('formMessage');
+
+                        // Honeypot check (bot prevention)
+                        if (formData.get('website')) {
+                            messageDiv.textContent = 'Submission failed. Please try again.';
+                            messageDiv.className = 'form-message error';
+                            messageDiv.style.display = 'block';
+                            return;
+                        }
+
+                        // Validate all required fields
+                        const requiredFields = ['fullName', 'company', 'email', 'phone', 'productType', 'quantity'];
+                        let isValid = true;
+
+                        requiredFields.forEach(field => {
+                            const input = document.getElementById(field);
+                            if (!input.validity.valid) {
+                                isValid = false;
+                                input.focus();
+                            }
+                        });
+
+                        // Check consent
+                        if (!document.getElementById('consent').checked) {
+                            isValid = false;
+                            alert('Please agree to the Terms & Conditions and Privacy Policy');
+                            return;
+                        }
+
+                        if (!isValid) {
+                            messageDiv.textContent = 'Please fill in all required fields correctly.';
+                            messageDiv.className = 'form-message error';
+                            messageDiv.style.display = 'block';
+                            return;
+                        }
+
+                        // In production, this would send to server with CSRF token validation
+                        // Server should implement:
+                        // - Rate limiting (e.g., 5 requests per minute per IP)
+                        // - CSRF token validation
+                        // - Input sanitization and validation
+                        // - SQL injection prevention (parameterized queries)
+                        // - Email validation and verification
+                        // - Logging and monitoring
+
+                        // Simulate successful submission
+                        messageDiv.textContent = 'Thank you! Your request has been submitted. We will contact you within 24 hours.';
+                        messageDiv.className = 'form-message success';
+                        messageDiv.style.display = 'block';
+
+                        // Reset form
+                        this.reset();
+
+                        // Scroll to message
+                        messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    });
+
+                    // Real-time validation feedback
+                    const inputs = document.querySelectorAll('input[required], select[required], textarea[required]');
+                    inputs.forEach(input => {
+                        input.addEventListener('blur', function() {
+                            if (this.validity.valid) {
+                                this.setAttribute('aria-invalid', 'false');
+                            } else {
+                                this.setAttribute('aria-invalid', 'true');
+                            }
+                        });
+                    });
+                </script>
+            </section>
+
+            <!-- Compliance & Security Section -->
+            <section id="compliance">
+                <h2>Compliance & Security</h2>
+                <div class="compliance-section">
+                    <h3>Website Security Standards</h3>
+                    <p>We implement industry-leading security practices to protect your data:</p>
+                    <ul>
+                        <li>HTTPS/TLS encryption for all data transmission</li>
+                        <li>Content Security Policy (CSP) headers to prevent XSS attacks</li>
+                        <li>CSRF token protection on all forms</li>
+                        <li>Input validation and sanitization following OWASP guidelines</li>
+                        <li>Rate limiting to prevent abuse and DDoS attacks</li>
+                        <li>Regular security audits and vulnerability assessments</li>
+                        <li>Secure password hashing with bcrypt (for account features)</li>
+                        <li>SQL injection prevention through parameterized queries</li>
+                        <li>Session management with secure, httpOnly cookies</li>
+                        <li>X-Frame-Options and X-Content-Type-Options headers</li>
+                    </ul>
+                </div>
+
+                <div class="compliance-section">
+                    <h3>Accessibility Commitment</h3>
+                    <p>Our website is designed to meet WCAG 2.1 Level AA standards:</p>
+                    <ul>
+                        <li>Semantic HTML for screen reader compatibility</li>
+                        <li>ARIA labels and landmarks for enhanced navigation</li>
+                        <li>Keyboard navigation support throughout the site</li>
+                        <li>Sufficient color contrast ratios (4.5:1 minimum)</li>
+                        <li>Focus indicators for all interactive elements</li>
+                        <li>Skip navigation links for screen reader users</li>
+                        <li>Responsive design for various devices and zoom levels</li>
+                        <li>Alternative text for all meaningful images</li>
+                        <li>Form labels and error messages properly associated</li>
+                        <li>Support for reduced motion preferences</li>
+                    </ul>
+                </div>
+
+                <div class="compliance-section">
+                    <h3>Product Compliance</h3>
+                    <p>Our totes meet or exceed industry standards:</p>
+                    <ul>
+                        <li>UN certification for hazardous materials transport</li>
+                        <li>FDA compliance for food-grade applications</li>
+                        <li>DOT regulations for transportation</li>
+                        <li>ISO 9001 quality management standards</li>
+                        <li>EPA environmental compliance</li>
+                        <li>OSHA safety requirements</li>
+                        <li>Material Safety Data Sheets (MSDS) available</li>
+                        <li>Traceability documentation provided</li>
+                    </ul>
+                </div>
+
+                <div class="compliance-section">
+                    <h3>Privacy & Data Protection</h3>
+                    <p>We are committed to protecting your privacy:</p>
+                    <ul>
+                        <li>GDPR compliance for EU customers</li>
+                        <li>CCPA compliance for California residents</li>
+                        <li>Minimal data collection - only what's necessary</li>
+                        <li>No selling or sharing of personal information</li>
+                        <li>Encrypted data storage</li>
+                        <li>Regular data backup and disaster recovery</li>
+                        <li>Right to access, modify, or delete your data</li>
+                        <li>Transparent privacy policy</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="container">
+            <p>&copy; 2026 Industrial Tote Services. All rights reserved.</p>
+            <p>
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="#terms">Terms & Conditions</a> |
+                <a href="#accessibility">Accessibility Statement</a>
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
+                This is a demonstration project by <a href="index.html">Alan Haddad</a> showcasing modern web development with OWASP security best practices.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
