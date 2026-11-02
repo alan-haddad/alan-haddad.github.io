@@ -290,7 +290,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .statement { font-size: clamp(2rem, 4.8vw, 3.5rem); font-weight: 650; letter-spacing: -0.035em; line-height: 1.12; max-width: 14ch; margin: 0; }
 .statement span { color: var(--ink-3); }
 
-.about-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(40px, 7vw, 96px); align-items: end; }
+.about-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(40px, 7vw, 96px); align-items: start; }
 .about-copy p { color: var(--ink-2); font-size: 1.125rem; line-height: 1.6; max-width: 58ch; }
 .about-copy p strong { color: var(--ink); font-weight: 600; }
 @media (max-width: 860px) { .about-grid { grid-template-columns: minmax(0, 1fr); } }
@@ -354,7 +354,13 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .timeline ul { margin: 0; padding-left: 1.1em; color: var(--ink-2); }
 .timeline li li { margin-bottom: 8px; max-width: 62ch; }
 .timeline li li::marker { color: var(--ink-3); }
-.timeline .note { color: var(--ink-3); font-size: 0.9375rem; margin: 0; }
+.timeline .note { color: var(--ink-2); font-size: 0.9375rem; margin: 0 0 12px; max-width: 62ch; }
+.timeline > li.brief .note { margin: 6px 0 0; }
+.roles { list-style: none; margin: 4px 0 0; padding: 0 0 0 18px; border-left: 2px solid var(--hairline); display: grid; gap: 18px; }
+.roles li { margin: 0; }
+.roles h4 { font-size: 1.0625rem; font-weight: 620; letter-spacing: -0.015em; }
+.roles .role-when { display: block; color: var(--ink-3); font-size: 0.875rem; margin: 2px 0 4px; font-variant-numeric: tabular-nums; }
+.roles p { color: var(--ink-2); margin: 0; max-width: 62ch; }
 .timeline > li.brief { padding: 22px 0; }
 .timeline > li.brief h3 { font-size: 1.125rem; }
 .timeline > li.brief .org { margin-bottom: 0; }
