@@ -12,18 +12,16 @@
   <meta property="og:url" content="https://alan-haddad.github.io/mcp-connector.html">
   <meta property="og:image" content="https://alan-haddad.github.io/images/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#f2f4f8" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0c1424" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#000000">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/mona-sans-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
   <header class="masthead">
-    <div class="wrap">
+    <div class="wrap-wide">
       <a class="wordmark" href="./">Alan Haddad</a>
       <nav class="site-nav" aria-label="Primary">
         <ul>
@@ -89,7 +87,7 @@
         </figure>
 
         <h2>What it does</h2>
-        <p>The connector gives Claude direct access to my ESPN basketball and football leagues, with my Yahoo basketball league joining as soon as API access is approved. I use it from a dedicated Claude project to manage my teams, so Claude works from the actual league data instead of whatever I remember to paste in.</p>
+        <p>The connector gives Claude direct access to my ESPN basketball and football leagues, with my Yahoo basketball league joining as soon as API access is approved. It exposes nine tools, and every one of them reads: <code>list_leagues</code>, <code>get_league_settings</code>, <code>get_standings</code>, <code>get_scoreboard</code>, <code>get_matchup</code>, <code>get_roster</code>, <code>get_player</code>, <code>get_free_agents</code> and <code>get_recent_activity</code>. I use it from a dedicated Claude project to manage my teams, so Claude works from the actual league data instead of whatever I remember to paste in.</p>
 
         <h2>Why a connector instead of browser automation</h2>
         <p>Claude can drive a browser, but a browser session can reach anything I'm signed in to and breaks whenever a page layout changes. A connector flips that: it exposes a small, fixed set of operations, returns structured data, and has nothing to do with the rest of my accounts.</p>
@@ -97,7 +95,7 @@
         <h2>Security decisions</h2>
         <ul>
           <li><strong>Local only.</strong> The server runs on my PC alongside Claude Desktop, so any tokens it uses stay on my machine instead of in a hosted service.</li>
-          <li><strong>Read-only by design.</strong> I didn't build any tool that can set a lineup, make a trade or post to a league. If the model is ever manipulated by something it reads, the worst case is that it reads more league data.</li>
+          <li><strong>Read-only by design.</strong> There is no tool that can set a lineup, make a trade or post to a league. If the model is ever manipulated by something it reads, the worst case is that it reads more league data.</li>
           <li><strong>Official access paths.</strong> Yahoo data goes through Yahoo's Fantasy Sports API program rather than scraping, which is why that half is waiting on approval.</li>
           <li><strong>One interface, two providers.</strong> ESPN and Yahoo sit behind the same connector, so adding a source doesn't mean granting Claude a new kind of access.</li>
         </ul>
@@ -113,8 +111,8 @@
     </article>
   </main>
   <footer class="site-footer">
-    <div class="wrap">
-      <span>&copy; 2026 Alan Haddad</span>
+    <div class="wrap-wide">
+      <span>Copyright &copy; 2026 Alan Haddad</span>
       <span>Hosted on GitHub Pages</span>
     </div>
   </footer>

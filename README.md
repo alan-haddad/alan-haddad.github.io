@@ -2,7 +2,7 @@
 
 Personal site of Alan Haddad, cloud security engineer. Live at https://alan-haddad.github.io.
 
-Plain HTML and CSS, no build step and no JavaScript. Pushing to `main` deploys through the GitHub Pages workflow in `.github/workflows/static.yml`.
+Plain HTML and CSS with one small optional script, no build step. Pushing to `main` deploys through the GitHub Pages workflow in `.github/workflows/static.yml`.
 
 | Path | What it is |
 | --- | --- |
@@ -13,6 +13,7 @@ Plain HTML and CSS, no build step and no JavaScript. Pushing to `main` deploys t
 | `mcp-connector.html` | Claude MCP connector write-up |
 | `terraform-scripts/main.tf` | The lab's Terraform |
 | `assets/css/site.css` | All styles, with design tokens at the top |
-| `assets/fonts/` | Self-hosted Archivo, Source Serif 4 and JetBrains Mono (SIL OFL, see `OFL.txt`) |
+| `assets/js/reveal.js` | Scroll-in animation (optional; the page works without it) |
+| `assets/fonts/` | Self-hosted Mona Sans and Geist Mono (SIL OFL, see `OFL.txt`) |
 
 Light and dark themes follow the visitor's system setting.
