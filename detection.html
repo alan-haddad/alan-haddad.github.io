@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detection engineering notes | Alan Haddad</title>
+  <meta name="description" content="Patterns Alan Haddad uses to turn AWS CloudTrail, GuardDuty and VPC Flow Logs into alerts worth acting on, with example Sumo Logic queries.">
+  <link rel="canonical" href="https://alan-haddad.github.io/detection.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Detection engineering notes">
+  <meta property="og:description" content="Patterns Alan Haddad uses to turn AWS CloudTrail, GuardDuty and VPC Flow Logs into alerts worth acting on, with example Sumo Logic queries.">
+  <meta property="og:url" content="https://alan-haddad.github.io/detection.html">
+  <meta property="og:image" content="https://alan-haddad.github.io/images/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#f2f4f8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0c1424" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="wrap">
+      <a class="wordmark" href="./">Alan Haddad</a>
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="./#work">Work</a></li>
+          <li class="opt"><a href="./#experience">Experience</a></li>
+          <li class="opt"><a href="./#credentials">Certifications</a></li>
+          <li><a href="./#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <header class="cs-head">
+      <div class="wrap">
+        <p class="crumb"><a href="./#work">Selected work</a></p>
+        <h1>Detection engineering notes</h1>
+        <p class="lede">An alert is only useful if someone can act on it. These are the patterns I use to get AWS detections to that point.</p>
+        <dl class="cs-facts">
+          <div><dt>Data sources</dt><dd>CloudTrail, GuardDuty, VPC Flow Logs</dd></div>
+          <div><dt>Query language</dt><dd>Sumo Logic, in the examples</dd></div>
+          <div><dt>Context</dt><dd>Multi-account AWS</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <article class="prose">
+      <div class="wrap">
+        <p class="callout">These are general patterns, not production rules. Queries are illustrative, written in Sumo Logic syntax, and every account name and IP address is made up.</p>
+
+        <h2>Console sign-ins without MFA, minus the federation noise</h2>
+        <p>"Alert on any console login without MFA" sounds simple until you turn it on. In an environment where people sign in through an SSO provider, CloudTrail records those federated sign-ins with <code>MFAUsed</code> set to <code>No</code>, because the MFA happened at the identity provider rather than in AWS. The naive rule fires on nearly everyone.</p>
+        <p>The fix is to look at who signed in. Federated users appear as assumed roles; IAM users with their own passwords appear as <code>IAMUser</code>. Those are the accounts that should be rare, and the ones where a missing MFA really matters.</p>
+        <figure class="code">
+          <div class="code-head"><span>Console sign-in without MFA</span><span>Sumo Logic</span></div>
+<pre><code><span class="k">_sourceCategory</span>=aws/cloudtrail <span class="s">"ConsoleLogin"</span>
+| <span class="k">json</span> <span class="s">"eventName"</span>, <span class="s">"userIdentity.type"</span>, <span class="s">"userIdentity.userName"</span>,
+       <span class="s">"additionalEventData.MFAUsed"</span>, <span class="s">"sourceIPAddress"</span>
+       <span class="k">as</span> event, type, user, mfa, src_ip
+| <span class="k">where</span> event = <span class="s">"ConsoleLogin"</span> <span class="k">and</span> mfa = <span class="s">"No"</span>
+<span class="c">// federated SSO sign-ins enforce MFA at the IdP</span>
+| <span class="k">where</span> type = <span class="s">"IAMUser"</span>
+| <span class="k">count by</span> user, src_ip</code></pre>
+        </figure>
+
+        <h2>Security group changes that actually matter</h2>
+        <p>Security group edits happen constantly, and most of them come through a reviewed infrastructure pipeline. Alerting on every <code>AuthorizeSecurityGroupIngress</code> buries the one that matters: someone opening a port to the whole internet from outside that pipeline.</p>
+        <p>So the detection narrows twice. It keeps only rules that open ingress to <code>0.0.0.0/0</code> or <code>::/0</code>, then excludes the deployment role whose changes already went through code review.</p>
+        <figure class="code">
+          <div class="code-head"><span>Ingress opened to the internet outside the pipeline</span><span>Sumo Logic</span></div>
+<pre><code><span class="k">_sourceCategory</span>=aws/cloudtrail <span class="s">"AuthorizeSecurityGroupIngress"</span>
+| <span class="k">json</span> <span class="s">"eventName"</span>, <span class="s">"userIdentity.arn"</span>, <span class="s">"requestParameters.groupId"</span>
+       <span class="k">as</span> event, actor, sg
+| <span class="k">where</span> event = <span class="s">"AuthorizeSecurityGroupIngress"</span>
+| <span class="k">where</span> _raw <span class="k">matches</span> <span class="s">"*0.0.0.0/0*"</span> <span class="k">or</span> _raw <span class="k">matches</span> <span class="s">"*::/0*"</span>
+| <span class="k">where</span> !(actor <span class="k">matches</span> <span class="s">"*:assumed-role/terraform-deploy/*"</span>)
+| <span class="k">count by</span> actor, sg</code></pre>
+        </figure>
+
+        <h2>GuardDuty triage: was the connection accepted?</h2>
+        <p>When GuardDuty reports an instance talking to a threat-listed IP, the first question isn't how scary the IP is. It's whether the traffic got through. VPC Flow Logs answer that in one query: if there are no <code>ACCEPT</code> records between that IP and the instance, the security group did its job and the finding can be closed with evidence. If there are, the destination port tells you where to look next.</p>
+        <figure class="code">
+          <div class="code-head"><span>Accepted traffic from a flagged IP</span><span>Sumo Logic</span></div>
+<pre><code><span class="k">_sourceCategory</span>=aws/vpcflow <span class="s">"198.51.100.7"</span>
+| <span class="k">parse</span> <span class="s">"* * * * * * * * * * * * * *"</span> <span class="k">as</span> version, account, eni, src, dst,
+        srcport, dstport, proto, packets, bytes, start, end, action, status
+| <span class="k">where</span> src = <span class="s">"198.51.100.7"</span> <span class="k">and</span> action = <span class="s">"ACCEPT"</span>
+| <span class="k">count by</span> eni, dst, dstport</code></pre>
+        </figure>
+
+        <h2>Least privilege is detection work too</h2>
+        <p>Some of the highest-value findings aren't events at all. A role that can call <code>sts:AssumeRole</code> on <code>Resource: "*"</code> can pivot into any role whose trust policy allows it. Scoping that grant to the specific admin roles it needs removes a whole category of lateral movement, and it makes any remaining <code>AssumeRole</code> alert far easier to judge.</p>
+        <figure class="code">
+          <div class="code-head"><span>Scoping an AssumeRole grant</span><span>IAM policy</span></div>
+<pre><code><span class="c">// before</span>
+{ <span class="s">"Effect"</span>: <span class="s">"Allow"</span>, <span class="s">"Action"</span>: <span class="s">"sts:AssumeRole"</span>, <span class="s">"Resource"</span>: <span class="s">"*"</span> }
+
+<span class="c">// after</span>
+{ <span class="s">"Effect"</span>: <span class="s">"Allow"</span>, <span class="s">"Action"</span>: <span class="s">"sts:AssumeRole"</span>,
+  <span class="s">"Resource"</span>: [
+    <span class="s">"arn:aws:iam::111122223333:role/platform-admin"</span>,
+    <span class="s">"arn:aws:iam::444455556666:role/platform-admin"</span>
+  ] }</code></pre>
+        </figure>
+
+        <h2>Rules I hold every alert to</h2>
+        <ul>
+          <li><strong>It has a next step.</strong> If the person paged can't say what they'd check first, the alert isn't done.</li>
+          <li><strong>It's baselined before it's on.</strong> I run the query over recent history first and look at what would have fired.</li>
+          <li><strong>Suppressions are written down.</strong> Every exception carries a business justification someone can review later.</li>
+          <li><strong>It's tested with a known-bad event.</strong> An alert that has never fired might just be broken.</li>
+        </ul>
+
+        <div class="next-up">
+          <p>Next</p>
+          <a href="mcp-connector.html">Claude MCP connector</a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>&copy; 2026 Alan Haddad</span>
+      <span>Hosted on GitHub Pages</span>
+    </div>
+  </footer>
+</body>
+</html>

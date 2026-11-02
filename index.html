@@ -1,182 +1,228 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alan Haddad - Cybersecurity Enthusiast</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        header {
-            background-color: #0077b6;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        header p {
-            font-size: 18px;
-            margin: 5px 0;
-        }
-
-        nav {
-            background-color: #003b5c;
-            padding: 10px;
-            text-align: center;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 15px;
-            margin: 0 10px;
-        }
-
-        nav a:hover {
-            background-color: #0077b6;
-        }
-
-        section {
-            padding: 20px;
-            margin: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-        }
-
-        section h2 {
-            color: #0077b6;
-        }
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #003b5c;
-            color: #fff;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .projects, .card-container {
-            display: flex;
-            flex-wrap: wrap; /* Ensures responsiveness */
-            gap: 20px; /* Adds space between the cards */
-            justify-content: space-between; /* Distributes cards evenly */
-        }
-
-        .card {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            flex: 1 1 calc(50% - 20px); /* Two cards per row */
-            box-sizing: border-box;
-            max-width: calc(50% - 20px); /* Prevent cards from exceeding 50% width */
-        }
-
-        .card h3 {
-            margin: 0;
-            color: #0077b6;
-        }
-
-        .card p {
-            margin: 10px 0;
-        }
-
-        @media (max-width: 768px) {
-            .card {
-                flex: 1 1 100%; /* Stacks cards on small screens */
-                max-width: 100%; /* Ensures full width on smaller screens */
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alan Haddad, security engineer</title>
+  <meta name="description" content="Alan Haddad is a security engineer at Genesys protecting a FedRAMP-authorized AWS environment: incident response, detection engineering and secure delivery. Cyber Effects Officer, Air National Guard.">
+  <link rel="canonical" href="https://alan-haddad.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Alan Haddad, security engineer">
+  <meta property="og:description" content="Incident response, detection engineering and compliance for AWS workloads built to federal standards.">
+  <meta property="og:url" content="https://alan-haddad.github.io/">
+  <meta property="og:image" content="https://alan-haddad.github.io/images/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#f2f4f8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0c1424" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
-    <header>
-        <h1>Alan Haddad</h1>
-        <p>Cybersecurity Enthusiast | Air Force Officer</p>
-    </header>
+  <a class="skip" href="#main">Skip to content</a>
 
-    <nav>
-        <a href="#about">About Me</a>
-        <a href="#projects">Projects</a>
-        <a href="#professional">Professional Profile</a>
-        <a href="#contact">Contact</a>
-    </nav>
-
-    <div class="container">
-        <!-- About Me Section -->
-        <section id="about">
-            <h2>About Me</h2>
-            <p>
-                With a background in leadership and process management, I am transitioning into the field of cybersecurity, bringing with me a wealth of experience in strategic operations, risk management, and team coordination. Over the past few years, I’ve progressed through roles at Cleveland-Cliffs and the United States Air Force, where I learned how to drive operational efficiency, foster innovation, and lead teams through complex challenges. These experiences have helped me develop valuable soft skills in leadership, problem-solving, and communication—skills that I’m now applying to the ever-evolving world of cybersecurity.
-            </p>
-            <p>
-                I’m deeply committed to continuous learning and improvement, always seeking out new opportunities to expand my knowledge and refine my skills. My training as a Cyber Effects Officer in the Air Force has further sharpened my ability to navigate strategic challenges, and I’m eager to apply this mindset to secure digital systems and contribute to organizational success.
-            </p>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects">
-            <h2>Projects</h2>
-            <div class="projects">
-                <div class="card">
-                    <h3>Home Lab Setup</h3>
-                    <p>Explore my home lab where I simulate real-world attack scenarios using tools like Kali Linux, Nessus, and Sumo Logic. I also deploy cloud-based infrastructure using AWS and automate tasks using Terraform.</p>
-                    <a href="network-map.html">View Project</a>
-                </div>
-                <div class="card">
-                    <h3>Cloud Deployment Automation</h3>
-                    <p>This Terraform script automates the deployment of a comprehensive cybersecurity home lab in AWS, showcasing Infrastructure as Code (IaC), cloud security, and log management. It includes a web server, attack platform, Nessus vulnerability scanner, and centralized S3 logging, all configured for maximum security and scalability.</p>
-                    <a href="terraform.html">Learn More</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Professional Profile Section -->
-        <section id="professional">
-            <h2>Professional Profile</h2>
-            <div class="card-container">
-                <div class="card">
-                    <h3>Skills</h3>
-                    <p>Information security, vulnerability assessment, penetration testing, security architecture and design, reconnaissance.</p>
-                </div>
-                <div class="card">
-                    <h3>Certifications</h3>
-                    <p>CompTIA Security+, AWS Certified Cloud Practitioner, SANS SEC560 (GPEN), and SANS SEC542 (GWAPT) .</p>
-                    <p>Upcoming certifications: SANS SEC660 (GXPN).</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact">
-            <h2>Contact Me</h2>
-            <p>If you're interested in discussing cybersecurity or potential collaborations, feel free to reach out!</p>
-            <p>LinkedIn: <a href="https://linkedin.com/in/alanhaddad9">linkedin.com/in/alanhaddad9</a></p>
-            <p>GitHub: <a href="https://github.com/alan-haddad">github.com/alan-haddad</a></p>
-        </section>
+  <header class="masthead">
+    <div class="wrap">
+      <a class="wordmark" href="./">Alan Haddad</a>
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#work">Work</a></li>
+          <li class="opt"><a href="#experience">Experience</a></li>
+          <li class="opt"><a href="#credentials">Certifications</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <footer>
-        <p>&copy; 2025 Alan Haddad. All rights reserved.</p>
-    </footer>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap">
+        <div>
+          <h1 class="hero-name" id="hero-title">Alan Haddad</h1>
+          <p class="hero-role">Associate Security Engineer, FedRAMP, at Genesys. Cyber Effects Officer, Air National Guard.</p>
+          <p class="hero-statement">I secure AWS environments built to federal standards. I run incidents from first alert to follow-up, write the detections, and help teams ship code that's secure and compliant from the start.</p>
+          <div class="hero-links">
+            <a class="button" href="#work">See my work</a>
+            <a class="plain" href="https://www.linkedin.com/in/alanhaddad9">LinkedIn</a>
+            <a class="plain" href="https://github.com/alan-haddad">GitHub</a>
+          </div>
+        </div>
+
+        <figure class="console" aria-label="Example detection query and its result">
+          <div class="console-bar"><strong>Example detection</strong><span>CloudTrail, last 24 hours</span></div>
+<pre><code><span class="ln" style="--i:0"><span class="k">_sourceCategory</span>=aws/cloudtrail <span class="s">"ConsoleLogin"</span></span><span class="ln" style="--i:1">| <span class="k">json</span> <span class="s">"eventName"</span> <span class="k">as</span> event</span><span class="ln" style="--i:2">| <span class="k">json</span> <span class="s">"userIdentity.type"</span> <span class="k">as</span> type</span><span class="ln" style="--i:3">| <span class="k">json</span> <span class="s">"userIdentity.userName"</span> <span class="k">as</span> user</span><span class="ln" style="--i:4">| <span class="k">json</span> <span class="s">"additionalEventData.MFAUsed"</span> <span class="k">as</span> mfa</span><span class="ln" style="--i:5">| <span class="k">json</span> <span class="s">"sourceIPAddress"</span> <span class="k">as</span> src_ip</span><span class="ln" style="--i:6">| <span class="k">where</span> event = <span class="s">"ConsoleLogin"</span> <span class="k">and</span> mfa = <span class="s">"No"</span></span><span class="ln" style="--i:7"><span class="c">// federated SSO sign-ins enforce MFA at the IdP</span></span><span class="ln" style="--i:8">| <span class="k">where</span> type = <span class="s">"IAMUser"</span></span><span class="ln" style="--i:9">| <span class="k">count by</span> user, src_ip</span></code></pre>
+          <div class="console-result">
+            <p class="console-status"><span class="dot" aria-hidden="true"></span>1 match</p>
+            <table>
+              <thead><tr><th scope="col">user</th><th scope="col">src_ip</th><th scope="col">_count</th></tr></thead>
+              <tbody><tr><td>svc-legacy-admin</td><td>203.0.113.24</td><td>1</td></tr></tbody>
+            </table>
+            <p class="console-note">Illustrative query in Sumo Logic syntax. The account and IP are made up.</p>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <div class="section-head"><h2 id="about-title">About</h2></div>
+        <div class="about">
+          <div class="about-body">
+            <p>I'm a security engineer on the FedRAMP team at Genesys, protecting a FedRAMP-authorized cloud environment on AWS. I own incident response from the moment an alert fires through containment, recovery and follow-up, and I work with development and infrastructure teams to build security into their pipelines before release.</p>
+<p>I came to security after years in manufacturing planning and process management at Cleveland-Cliffs and ArcelorMittal. That background still shapes how I work: clear process, decisions written down, and security that makes operations stronger instead of slower.</p>
+<p>I've served in the Air Force since 2011, first as an air transportation specialist and now as a Cyber Effects Officer in the Air National Guard, where I also help run mentorship for the airmen in my unit. On my own time I keep building: an AWS lab for offense and defense, Infrastructure as Code, and tools that connect Claude to real data through the Model Context Protocol.</p>
+          </div>
+          <dl class="facts">
+            <div><dt>Focus</dt><dd>Cloud incident response, detection engineering, FedRAMP compliance</dd></div>
+            <div><dt>Platforms</dt><dd>AWS, Terraform, cloud SIEM</dd></div>
+            <div><dt>Service</dt><dd>Cyber Effects Officer, Air National Guard</dd></div>
+            <div><dt>Based in</dt><dd>Greater Cleveland, working remotely</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="work" aria-labelledby="work-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="work-title">Selected work</h2>
+          <p>Projects I build on my own time to go deeper than the day job allows.</p>
+        </div>
+
+        <article class="work work-feature">
+          <div>
+            <h3>AWS security lab</h3>
+            <p>A purpose-built AWS environment where I attack a deliberately vulnerable web app, scan it for weaknesses, and follow the logs into a SIEM. The whole thing deploys from one Terraform file.</p>
+            <ul class="stack" aria-label="Technologies">
+              <li>EC2</li><li>S3</li><li>IAM</li><li>Kali</li><li>Nessus</li><li>DVWA</li><li>Sumo Logic</li><li>Terraform</li>
+            </ul>
+            <a class="more" href="network-map.html">Read the lab write-up</a><a class="more" href="terraform.html">See the Terraform</a>
+          </div>
+          <figure>
+            <div class="diagram-scroll">
+              <svg class="diagram" viewBox="0 0 664 456" role="img" aria-labelledby="lab-dt lab-dd" xmlns="http://www.w3.org/2000/svg">
+  <title id="lab-dt">AWS security lab architecture</title>
+  <desc id="lab-dd">Inside a VPC, a Kali attack platform and a Nessus scanner both target a DVWA web server in one public subnet. The web server ships Apache logs to a private S3 bucket outside the VPC, and Sumo Logic ingests the bucket for dashboards and alerts.</desc>
+  <defs>
+    <marker id="lab-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+    <marker id="lab-ah-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah-attack" d="M0 0 L10 5 L0 10 z"/></marker>
+  </defs>
+
+  <rect class="zone" x="12" y="40" width="440" height="404" rx="10"/>
+  <text class="zone-label" x="28" y="64">VPC 10.0.0.0/16</text>
+  <rect class="zone-inner" x="30" y="78" width="404" height="350" rx="8"/>
+  <text class="zone-label" x="46" y="102">Public subnet 10.0.1.0/24</text>
+
+  <rect class="node node-attack" x="46" y="118" width="172" height="64" rx="6"/>
+  <text class="t" x="60" y="145">Attack platform</text>
+  <text class="st" x="60" y="166">Kali in Docker on EC2</text>
+
+  <rect class="node" x="246" y="118" width="172" height="64" rx="6"/>
+  <text class="t" x="260" y="145">Vulnerability scanner</text>
+  <text class="st" x="260" y="166">Nessus on Ubuntu EC2</text>
+
+  <rect class="node" x="146" y="300" width="172" height="68" rx="6"/>
+  <text class="t" x="160" y="328">Target web server</text>
+  <text class="st" x="160" y="349">DVWA, Apache, MySQL</text>
+
+  <path class="edge edge-attack" d="M132 182 L198 296" marker-end="url(#lab-ah-a)"/>
+  <text class="el el-attack" x="62" y="238">Nmap,</text>
+  <text class="el el-attack" x="62" y="253">Metasploit</text>
+  <path class="edge" d="M332 182 L268 296" marker-end="url(#lab-ah)"/>
+  <text class="el" x="322" y="238">Scheduled</text>
+  <text class="el" x="322" y="253">scans</text>
+
+  <text class="st" x="46" y="398">Security groups allow SSH and the Nessus UI from one admin /32.</text>
+  <text class="st" x="46" y="414">Only the target exposes HTTP.</text>
+
+  <rect class="node node-ext" x="490" y="300" width="160" height="68" rx="6"/>
+  <text class="t" x="504" y="328">Log bucket</text>
+  <text class="st" x="504" y="349">S3, private</text>
+
+  <path class="edge" d="M318 334 L486 334" marker-end="url(#lab-ah)"/>
+  <text class="el" x="334" y="325">Apache logs</text>
+  <text class="el" x="334" y="352">cron + AWS CLI</text>
+
+  <rect class="node node-ext" x="490" y="118" width="160" height="64" rx="6"/>
+  <text class="t" x="504" y="145">Sumo Logic</text>
+  <text class="st" x="504" y="166">Dashboards, alerts</text>
+
+  <path class="edge" d="M570 300 L570 186" marker-end="url(#lab-ah)"/>
+  <text class="el" x="580" y="238">S3 source</text>
+  <text class="el" x="580" y="253">ingest</text>
+</svg>
+            </div>
+          </figure>
+        </article>
+
+        <div class="work-grid">
+          <article class="work">
+            <h3>Detection engineering notes</h3>
+            <p>Patterns I use to turn AWS logs into alerts worth acting on: console sign-ins without MFA that account for SSO federation, GuardDuty triage backed by flow logs, and security group changes without the noise.</p>
+            <ul class="stack" aria-label="Technologies">
+              <li>Sumo Logic</li><li>CloudTrail</li><li>GuardDuty</li><li>VPC Flow Logs</li>
+            </ul>
+            <a class="more" href="detection.html">Read the notes</a>
+          </article>
+          <article class="work">
+            <h3>Claude MCP connector</h3>
+            <p>A local Model Context Protocol server that gives Claude read-only access to my ESPN and Yahoo fantasy leagues. A small, practical exercise in deciding exactly what an AI agent is allowed to touch.</p>
+            <ul class="stack" aria-label="Technologies">
+              <li>MCP</li><li>Claude Desktop</li><li>ESPN</li><li>Yahoo Fantasy API</li>
+            </ul>
+            <a class="more" href="mcp-connector.html">Read the write-up</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="experience" aria-labelledby="exp-title">
+      <div class="wrap">
+        <div class="section-head"><h2 id="exp-title">Experience</h2></div>
+        <ol class="timeline" reversed>
+          <li><div class="when">Oct 2025 &ndash; Present</div><div><h3>Associate Security Engineer, FedRAMP</h3><p class="org">Genesys</p><ul><li>Run incident response for a FedRAMP-authorized cloud environment, from first alert through investigation, containment, recovery and follow-up.</li><li>Build and tune SIEM detections across CloudTrail, GuardDuty and VPC Flow Logs.</li><li>Remediate overly broad IAM across multiple AWS accounts, including wildcard <code>sts:AssumeRole</code> grants scoped down to named roles.</li><li>Work with development and infrastructure teams to build security and compliance into deployment pipelines.</li><li>Review cloud configurations and recommend design changes before risks become incidents.</li></ul></div></li>
+          <li><div class="when">Aug 2023 &ndash; Present</div><div><h3>Cyber Effects Officer</h3><p class="org">Air National Guard</p><ul><li>Plan, coordinate and conduct cyberspace operations, drawing on both offensive and defensive tactics.</li><li>Help lead the unit's mentorship program and its resources for airmen.</li></ul></div></li>
+          <li class="brief"><div class="when">Mar 2022 &ndash; Oct 2025</div><div><h3>Senior Planner, Manufacturing Planning</h3><p class="org">Cleveland-Cliffs</p><p class="note">Process Manager from Mar 2022 to Mar 2023.</p></div></li>
+          <li class="brief"><div class="when">Apr 2018 &ndash; Mar 2022</div><div><h3>Production Planner</h3><p class="org">ArcelorMittal</p></div></li>
+          <li class="brief"><div class="when">Oct 2011 &ndash; Aug 2022</div><div><h3>Air Transportation Specialist</h3><p class="org">United States Air Force</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="credentials" aria-labelledby="cred-title">
+      <div class="wrap">
+        <div class="section-head"><h2 id="cred-title">Certifications</h2></div>
+        <table class="creds">
+          <thead><tr><th scope="col">Certification</th><th scope="col">Issuer</th><th scope="col">Issued</th></tr></thead>
+          <tbody>
+            <tr><td>GIAC Web Application Penetration Tester (GWAPT)<span class="cred-sub">SANS SEC542</span></td><td>GIAC</td><td class="issued">Jul 2025</td></tr>
+            <tr><td>AWS Certified Cloud Practitioner</td><td>Amazon Web Services</td><td class="issued">Dec 2024</td></tr>
+            <tr><td>GIAC Penetration Tester (GPEN)<span class="cred-sub">SANS SEC560</span></td><td>GIAC</td><td class="issued">Aug 2024</td></tr>
+            <tr><td>CompTIA Security+</td><td>CompTIA</td><td class="issued">Feb 2024</td></tr>
+          </tbody>
+        </table>
+        <p class="education"><span>Education</span> The Ohio State University, Accounting, 2014 &ndash; 2017</p>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="wrap">
+        <h2 class="contact-line" id="contact-title">Want to talk cloud security? LinkedIn is the fastest way to reach me.</h2>
+        <ul class="contact-links">
+          <li><a href="https://www.linkedin.com/in/alanhaddad9"><span>LinkedIn</span><span>linkedin.com/in/alanhaddad9</span></a></li>
+          <li><a href="https://github.com/alan-haddad"><span>GitHub</span><span>github.com/alan-haddad</span></a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>&copy; 2026 Alan Haddad</span>
+      <span>Hosted on GitHub Pages</span>
+    </div>
+  </footer>
 </body>
 </html>
-
-
-			
-
-

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude MCP connector | Alan Haddad</title>
+  <meta name="description" content="A local Model Context Protocol server Alan Haddad built to give Claude read-only access to his ESPN and Yahoo fantasy leagues.">
+  <link rel="canonical" href="https://alan-haddad.github.io/mcp-connector.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Claude MCP connector">
+  <meta property="og:description" content="A local Model Context Protocol server Alan Haddad built to give Claude read-only access to his ESPN and Yahoo fantasy leagues.">
+  <meta property="og:url" content="https://alan-haddad.github.io/mcp-connector.html">
+  <meta property="og:image" content="https://alan-haddad.github.io/images/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#f2f4f8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0c1424" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="wrap">
+      <a class="wordmark" href="./">Alan Haddad</a>
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="./#work">Work</a></li>
+          <li class="opt"><a href="./#experience">Experience</a></li>
+          <li class="opt"><a href="./#credentials">Certifications</a></li>
+          <li><a href="./#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <header class="cs-head">
+      <div class="wrap">
+        <p class="crumb"><a href="./#work">Selected work</a></p>
+        <h1>Claude MCP connector</h1>
+        <p class="lede">A local Model Context Protocol server that lets Claude read my fantasy leagues, and nothing else.</p>
+        <dl class="cs-facts">
+          <div><dt>Runs in</dt><dd>Claude Desktop, locally on my PC</dd></div>
+          <div><dt>Data</dt><dd>ESPN basketball and football, Yahoo basketball</dd></div>
+          <div><dt>Access</dt><dd>Read-only</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <article class="prose">
+      <div class="wrap">
+        <figure class="panel">
+          <div class="diagram-scroll">
+            <svg class="diagram" viewBox="0 0 664 196" role="img" aria-labelledby="mcp-dt mcp-dd" xmlns="http://www.w3.org/2000/svg">
+              <title id="mcp-dt">Connector architecture</title>
+              <desc id="mcp-dd">Claude Desktop talks to a local MCP server on the same PC. The server makes read-only requests to ESPN and, once approved, to the Yahoo Fantasy Sports API.</desc>
+              <defs>
+                <marker id="mcp-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+              </defs>
+              <rect class="zone" x="12" y="16" width="400" height="164" rx="10"/>
+              <text class="zone-label" x="28" y="40">My PC</text>
+
+              <rect class="node" x="32" y="66" width="150" height="68" rx="6"/>
+              <text class="t" x="46" y="94">Claude Desktop</text>
+              <text class="st" x="46" y="115">Chat and project</text>
+
+              <rect class="node" x="244" y="66" width="150" height="68" rx="6"/>
+              <text class="t" x="258" y="94">MCP server</text>
+              <text class="st" x="258" y="115">Read-only tools</text>
+
+              <path class="edge" d="M186 100 L240 100" marker-end="url(#mcp-ah)"/>
+
+              <rect class="node node-ext" x="484" y="28" width="166" height="60" rx="6"/>
+              <text class="t" x="498" y="54">ESPN Fantasy</text>
+              <text class="st" x="498" y="73">Basketball, football</text>
+
+              <rect class="node node-ext" x="484" y="112" width="166" height="60" rx="6"/>
+              <text class="t" x="498" y="138">Yahoo Fantasy API</text>
+              <text class="st" x="498" y="157">Pending API approval</text>
+
+              <path class="edge" d="M398 92 L480 62" marker-end="url(#mcp-ah)"/>
+              <path class="edge edge-ctl" d="M398 108 L480 138" marker-end="url(#mcp-ah)"/>
+              <text class="el" x="420" y="104">read</text>
+            </svg>
+          </div>
+          <figcaption>The server runs on my own machine, and every tool it exposes reads data. Nothing it offers can change a roster.</figcaption>
+        </figure>
+
+        <h2>What it does</h2>
+        <p>The connector gives Claude direct access to my ESPN basketball and football leagues, with my Yahoo basketball league joining as soon as API access is approved. I use it from a dedicated Claude project to manage my teams, so Claude works from the actual league data instead of whatever I remember to paste in.</p>
+
+        <h2>Why a connector instead of browser automation</h2>
+        <p>Claude can drive a browser, but a browser session can reach anything I'm signed in to and breaks whenever a page layout changes. A connector flips that: it exposes a small, fixed set of operations, returns structured data, and has nothing to do with the rest of my accounts.</p>
+
+        <h2>Security decisions</h2>
+        <ul>
+          <li><strong>Local only.</strong> The server runs on my PC alongside Claude Desktop, so any tokens it uses stay on my machine instead of in a hosted service.</li>
+          <li><strong>Read-only by design.</strong> I didn't build any tool that can set a lineup, make a trade or post to a league. If the model is ever manipulated by something it reads, the worst case is that it reads more league data.</li>
+          <li><strong>Official access paths.</strong> Yahoo data goes through Yahoo's Fantasy Sports API program rather than scraping, which is why that half is waiting on approval.</li>
+          <li><strong>One interface, two providers.</strong> ESPN and Yahoo sit behind the same connector, so adding a source doesn't mean granting Claude a new kind of access.</li>
+        </ul>
+
+        <h2>Why this matters beyond fantasy sports</h2>
+        <p>MCP is quickly becoming how AI agents get access to real systems, and the questions are the same ones I ask about any integration at work. What can it reach? Under whose identity? What happens if the model is fed instructions through the data it reads? Starting from read-only scope and a local trust boundary keeps the answers short.</p>
+
+        <div class="next-up">
+          <p>Back to</p>
+          <a href="./#work">All selected work</a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>&copy; 2026 Alan Haddad</span>
+      <span>Hosted on GitHub Pages</span>
+    </div>
+  </footer>
+</body>
+</html>

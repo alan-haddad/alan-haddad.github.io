@@ -1,133 +1,169 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cybersecurity Home Lab</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        header {
-            background-color: #0077b6;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        section {
-            padding: 20px;
-            margin: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        section img {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #003b5c;
-            color: #fff;
-        }
-
-        a {
-            color: #0077b6;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .description {
-            text-align: left;
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-        }
-
-        .description h3 {
-            color: #0077b6;
-        }
-
-        .description p {
-            line-height: 1.6;
-            margin: 10px 0;
-        }
-
-        .description ul {
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-
-        .description ul li {
-            margin-bottom: 5px;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AWS security lab | Alan Haddad</title>
+  <meta name="description" content="An AWS lab where Alan Haddad attacks a deliberately vulnerable web app, scans it with Nessus, and analyzes the logs in Sumo Logic.">
+  <link rel="canonical" href="https://alan-haddad.github.io/network-map.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AWS security lab">
+  <meta property="og:description" content="An AWS lab where Alan Haddad attacks a deliberately vulnerable web app, scans it with Nessus, and analyzes the logs in Sumo Logic.">
+  <meta property="og:url" content="https://alan-haddad.github.io/network-map.html">
+  <meta property="og:image" content="https://alan-haddad.github.io/images/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#f2f4f8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0c1424" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
-    <header>
-        <h1>Lab Setup</h1>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="wrap">
+      <a class="wordmark" href="./">Alan Haddad</a>
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="./#work">Work</a></li>
+          <li class="opt"><a href="./#experience">Experience</a></li>
+          <li class="opt"><a href="./#credentials">Certifications</a></li>
+          <li><a href="./#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <header class="cs-head">
+      <div class="wrap">
+        <p class="crumb"><a href="./#work">Selected work</a></p>
+        <h1>AWS security lab</h1>
+        <p class="lede">An environment built to practice both sides of the job: attacking a deliberately vulnerable web app, then finding the evidence in the logs.</p>
+        <dl class="cs-facts">
+          <div><dt>Infrastructure</dt><dd>AWS VPC, EC2, S3, IAM</dd></div>
+          <div><dt>Tooling</dt><dd>Kali, Nmap, Metasploit, Nessus, DVWA</dd></div>
+          <div><dt>Visibility</dt><dd>Apache logs to S3, analyzed in Sumo Logic</dd></div>
+        </dl>
+      </div>
     </header>
 
-    <section>
-        <p>This network map illustrates the design and components of my cybersecurity home lab, including the attack platform, web server, Nessus server, S3 bucket, and Sumo Logic integration.</p>
-        <img src="images/Home_lab.drawio.png" alt="Cybersecurity Home Lab Network Map">
+    <article class="prose">
+      <div class="wrap">
+        <figure class="panel">
+          <div class="diagram-scroll">
+            <svg class="diagram" viewBox="0 0 664 456" role="img" aria-labelledby="lab-dt lab-dd" xmlns="http://www.w3.org/2000/svg">
+  <title id="lab-dt">AWS security lab architecture</title>
+  <desc id="lab-dd">Inside a VPC, a Kali attack platform and a Nessus scanner both target a DVWA web server in one public subnet. The web server ships Apache logs to a private S3 bucket outside the VPC, and Sumo Logic ingests the bucket for dashboards and alerts.</desc>
+  <defs>
+    <marker id="lab-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+    <marker id="lab-ah-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah-attack" d="M0 0 L10 5 L0 10 z"/></marker>
+  </defs>
 
-        <div class="description">
-            <h3>Lab Setup Process</h3>
-            <p>The primary goal of this cybersecurity home lab is to showcase my skills, technical knowledge, and passion for continuous learning and improvement. This lab serves as a platform to demonstrate my ability to configure, integrate, and analyze diverse security tools while addressing real-world challenges.</p>
+  <rect class="zone" x="12" y="40" width="440" height="404" rx="10"/>
+  <text class="zone-label" x="28" y="64">VPC 10.0.0.0/16</text>
+  <rect class="zone-inner" x="30" y="78" width="404" height="350" rx="8"/>
+  <text class="zone-label" x="46" y="102">Public subnet 10.0.1.0/24</text>
 
-            <h4>Key Components</h4>
-            <ul>
-                <li><strong>Attack Platform:</strong> A Kali Linux instance running as a Docker container on an EC2 instance. Configured with tools such as Nmap and Metasploit to simulate attacks on the web server.</li>
-                <li><strong>Web Server:</strong> A vulnerable web application (DVWA) hosted on an Ubuntu EC2 instance. Configured with Apache2 and MySQL, with logs forwarded to an S3 bucket using AWS CLI and cron jobs.</li>
-                <li><strong>Nessus Server:</strong> Installed on a separate Ubuntu EC2 instance. Used for conducting vulnerability scans and identifying critical risks on the web server.</li>
-                <li><strong>S3 Bucket:</strong> Configured to store Apache logs from the web server. Integrated with the Sumo Logic ingestor for log analysis.</li>
-                <li><strong>Sumo Logic:</strong> Configured to ingest and analyze logs from the S3 bucket. Provides dashboards and alerts for monitoring security events.</li>
-            </ul>
+  <rect class="node node-attack" x="46" y="118" width="172" height="64" rx="6"/>
+  <text class="t" x="60" y="145">Attack platform</text>
+  <text class="st" x="60" y="166">Kali in Docker on EC2</text>
 
-            <h4>Challenges and Solutions</h4>
-            <ul>
-                <li><strong>Kali Linux Setup:</strong> Initial configurations were lost when restarting the Docker container. <em>Solution:</em> Committed changes to a custom Docker image to persist configurations and installed essential tools like Nmap and Metasploit.</li>
-                <li><strong>Web Server Logging:</strong> Logs were not correctly routed to the S3 bucket. <em>Solution:</em> Updated Apache configurations to log to a specific directory and automated synchronization to S3 using a cron job.</li>
-                <li><strong>Nessus Installation:</strong> The Nessus installation failed on Amazon Linux due to incompatibility. <em>Solution:</em> Launched a new Ubuntu instance, installed Nessus successfully, and verified scans.</li>
-                <li><strong>Sumo Logic Integration:</strong> Logs initially didn’t appear in Sumo Logic. <em>Solution:</em> Verified S3 permissions, updated the ingestor configuration, and ran test queries to confirm log ingestion.</li>
-            </ul>
+  <rect class="node" x="246" y="118" width="172" height="64" rx="6"/>
+  <text class="t" x="260" y="145">Vulnerability scanner</text>
+  <text class="st" x="260" y="166">Nessus on Ubuntu EC2</text>
 
-            <h4>Future Enhancements</h4>
-            <ul>
-                <li>Integrate additional tools, such as intrusion detection systems (e.g., Snort or Suricata).</li>
-                <li>Simulate advanced attack scenarios for in-depth vulnerability analysis.</li>
-                <li>Implement automated incident response workflows using cloud-native tools (e.g., AWS Lambda or EventBridge).</li>
-            </ul>
+  <rect class="node" x="146" y="300" width="172" height="68" rx="6"/>
+  <text class="t" x="160" y="328">Target web server</text>
+  <text class="st" x="160" y="349">DVWA, Apache, MySQL</text>
+
+  <path class="edge edge-attack" d="M132 182 L198 296" marker-end="url(#lab-ah-a)"/>
+  <text class="el el-attack" x="62" y="238">Nmap,</text>
+  <text class="el el-attack" x="62" y="253">Metasploit</text>
+  <path class="edge" d="M332 182 L268 296" marker-end="url(#lab-ah)"/>
+  <text class="el" x="322" y="238">Scheduled</text>
+  <text class="el" x="322" y="253">scans</text>
+
+  <text class="st" x="46" y="398">Security groups allow SSH and the Nessus UI from one admin /32.</text>
+  <text class="st" x="46" y="414">Only the target exposes HTTP.</text>
+
+  <rect class="node node-ext" x="490" y="300" width="160" height="68" rx="6"/>
+  <text class="t" x="504" y="328">Log bucket</text>
+  <text class="st" x="504" y="349">S3, private</text>
+
+  <path class="edge" d="M318 334 L486 334" marker-end="url(#lab-ah)"/>
+  <text class="el" x="334" y="325">Apache logs</text>
+  <text class="el" x="334" y="352">cron + AWS CLI</text>
+
+  <rect class="node node-ext" x="490" y="118" width="160" height="64" rx="6"/>
+  <text class="t" x="504" y="145">Sumo Logic</text>
+  <text class="st" x="504" y="166">Dashboards, alerts</text>
+
+  <path class="edge" d="M570 300 L570 186" marker-end="url(#lab-ah)"/>
+  <text class="el" x="580" y="238">S3 source</text>
+  <text class="el" x="580" y="253">ingest</text>
+</svg>
+          </div>
+          <figcaption>Everything except the log pipeline lives in a single public subnet, with security groups doing the access control.</figcaption>
+        </figure>
+
+        <h2>Why I built it</h2>
+        <p>Reading about an attack and seeing it in your own logs are different things. I wanted one place where I could launch an attack, scan for the weakness that made it possible, and then trace both in a SIEM, the same loop a detection engineer runs every day.</p>
+
+        <h2>What's in it</h2>
+        <ul>
+          <li><strong>Attack platform.</strong> Kali Linux running in Docker on an EC2 instance, with Nmap and Metasploit for reconnaissance and exploitation.</li>
+          <li><strong>Target web server.</strong> DVWA, the Damn Vulnerable Web Application, on Ubuntu with Apache and MySQL.</li>
+          <li><strong>Vulnerability scanner.</strong> Nessus on its own Ubuntu instance, scanning the target and reporting critical findings.</li>
+          <li><strong>Log pipeline.</strong> A cron job syncs Apache logs to a private S3 bucket with the AWS CLI, using an instance role scoped to that bucket only.</li>
+          <li><strong>Analysis.</strong> Sumo Logic ingests the bucket and drives dashboards and alerts for the attack traffic.</li>
+        </ul>
+        <p>The whole environment is defined in Terraform, so I can tear it down when I'm not using it and stand it back up in minutes. <a href="terraform.html">See how the Terraform is built</a>.</p>
+
+        <h2>Problems I hit, and how I fixed them</h2>
+        <ul class="pairs">
+          <li>
+            <h3>Kali lost its setup on every restart</h3>
+            <p>Tools and configuration installed inside the container disappeared when it restarted.</p>
+            <p class="fix"><strong>Fix:</strong> I committed the configured container to a custom image, so Nmap, Metasploit and my settings persist.</p>
+          </li>
+          <li>
+            <h3>Logs weren't reaching S3</h3>
+            <p>Apache was writing logs, but nothing arrived in the bucket.</p>
+            <p class="fix"><strong>Fix:</strong> I pointed Apache at a dedicated log directory and automated the sync to S3 with a cron job.</p>
+          </li>
+          <li>
+            <h3>Nessus wouldn't install on Amazon Linux</h3>
+            <p>The installer wasn't compatible with the distribution.</p>
+            <p class="fix"><strong>Fix:</strong> I rebuilt the scanner on Ubuntu, then confirmed it with a full scan of the target.</p>
+          </li>
+          <li>
+            <h3>Nothing showed up in Sumo Logic</h3>
+            <p>The bucket had logs, but searches came back empty.</p>
+            <p class="fix"><strong>Fix:</strong> I checked the S3 permissions, corrected the source configuration, and ran test queries until ingestion was confirmed.</p>
+          </li>
+        </ul>
+
+        <h2>What I'd add next</h2>
+        <ul>
+          <li>Network intrusion detection with Suricata or Snort, so attacks are visible below the application layer.</li>
+          <li>Longer, multi-stage attack scenarios to test whether the detections hold up across a full kill chain.</li>
+          <li>Automated response with EventBridge and Lambda, such as isolating an instance when an alert fires.</li>
+        </ul>
+
+        <div class="next-up">
+          <p>Next</p>
+          <a href="terraform.html">Deploying the lab with Terraform</a>
         </div>
-
-        <p><a href="index.html">Back to Home</a></p>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Alan Haddad. All rights reserved.</p>
-    </footer>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>&copy; 2026 Alan Haddad</span>
+      <span>Hosted on GitHub Pages</span>
+    </div>
+  </footer>
 </body>
 </html>
-
-

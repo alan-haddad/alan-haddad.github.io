@@ -1,109 +1,135 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloud Deployment Automation - Terraform</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        header {
-            background-color: #0077b6;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-
-        section {
-            padding: 20px;
-            margin: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-        }
-
-        pre {
-            background-color: #f4f4f4;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            overflow-x: auto;
-            white-space: pre-wrap;
-        }
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #003b5c;
-            color: #fff;
-        }
-
-        a {
-            color: #0077b6;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .center-link {
-            text-align: center;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deploying the lab with Terraform | Alan Haddad</title>
+  <meta name="description" content="How Alan Haddad's AWS security lab is defined in one Terraform file, with IP-restricted security groups and a least-privilege logging role.">
+  <link rel="canonical" href="https://alan-haddad.github.io/terraform.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Deploying the lab with Terraform">
+  <meta property="og:description" content="How Alan Haddad's AWS security lab is defined in one Terraform file, with IP-restricted security groups and a least-privilege logging role.">
+  <meta property="og:url" content="https://alan-haddad.github.io/terraform.html">
+  <meta property="og:image" content="https://alan-haddad.github.io/images/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#f2f4f8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0c1424" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
-    <header>
-        <h1>Cloud Deployment Automation</h1>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="wrap">
+      <a class="wordmark" href="./">Alan Haddad</a>
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="./#work">Work</a></li>
+          <li class="opt"><a href="./#experience">Experience</a></li>
+          <li class="opt"><a href="./#credentials">Certifications</a></li>
+          <li><a href="./#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <header class="cs-head">
+      <div class="wrap">
+        <p class="crumb"><a href="./#work">Selected work</a></p>
+        <h1>Deploying the lab with Terraform</h1>
+        <p class="lede">One Terraform file stands up the whole <a href="network-map.html">security lab</a>: network, instances, logging and the permissions between them.</p>
+        <dl class="cs-facts">
+          <div><dt>Provisions</dt><dd>VPC, subnet, routing, 3 EC2 instances, S3 log bucket</dd></div>
+          <div><dt>Access control</dt><dd>Security groups pinned to the operator's IP, scoped IAM role</dd></div>
+          <div><dt>Source</dt><dd><a href="https://github.com/alan-haddad/alan-haddad.github.io/blob/main/terraform-scripts/main.tf">main.tf on GitHub</a></dd></div>
+        </dl>
+      </div>
     </header>
 
-    <section>
-        <h2>About This Project</h2>
-        <p>
-            This Terraform script automates the deployment of a comprehensive cybersecurity home lab within AWS. Designed to reflect real-world cloud infrastructure, it demonstrates skills in Infrastructure as Code (IaC), secure resource management, and scalability. The script provisions key components including a Virtual Private Cloud (VPC), EC2 instances for a web server, attack platform, and Nessus vulnerability scanner, as well as an S3 bucket for centralized log storage.
-        </p>
-    </section>
+    <article class="prose">
+      <div class="wrap">
+        <h2>Why Infrastructure as Code</h2>
+        <p>A lab you build by hand drifts. Security group rules get loosened to debug something and never get tightened again. Defining the lab in Terraform keeps it reviewable and repeatable, and I can destroy it when I'm not using it, which keeps the attack surface and the bill at zero.</p>
 
-    <section>
-        <h2>Key Features</h2>
+        <h2>What it builds</h2>
         <ul>
-            <li>Automated deployment of a Virtual Private Cloud (VPC) and subnet architecture.</li>
-            <li>Provisioning of EC2 instances for a web server, Nessus vulnerability scanner, and attack platform.</li>
-            <li>Centralized log storage using an S3 bucket, with automated log forwarding from the web server.</li>
-            <li>Dynamic security group configurations to restrict SSH and service access to specific IP addresses.</li>
-            <li>Scalable and modular infrastructure suitable for real-world learning and demonstrations.</li>
+          <li>A VPC (<code>10.0.0.0/16</code>) with a public subnet, internet gateway and route table.</li>
+          <li>Three EC2 instances: the target web server, the Nessus scanner and the attack platform, each with its own security group.</li>
+          <li>A private S3 bucket for logs, named with a random suffix so every deployment is unique.</li>
+          <li>An IAM role and instance profile that let only the web server write to that bucket.</li>
         </ul>
-    </section>
 
-    <section>
-        <h2>Terraform Code Snippet</h2>
-        <pre>
-# Example from the script
-resource "aws_instance" "web_server" {
-  ami           = "ami-12345678"
-  instance_type = "t2.micro"
-  subnet_id     = aws_subnet.public.id
-  key_name      = "your-key-pair"
-  tags = {
-    Name = "WebServer"
-  }
+        <h2>Locking access to the operator</h2>
+        <p>Rather than hard-coding an IP, the script looks up the public address of whoever runs <code>terraform apply</code> and allows SSH from that single <code>/32</code>. The Nessus UI on port 8834 gets the same treatment. Only the target's HTTP port is open to the internet, because that's the thing being attacked.</p>
+        <figure class="code">
+          <div class="code-head"><span>main.tf</span><span>excerpt</span></div>
+<pre><code><span class="k">data</span> <span class="s">"http"</span> <span class="s">"my_ip"</span> {
+  url = <span class="s">"https://checkip.amazonaws.com/"</span>
 }
-        </pre>
-        <p class="center-link"><a href="https://raw.githubusercontent.com/alan-haddad/alan-haddad.github.io/refs/heads/main/terraform-scripts/main.tf" target="_blank">View Full Project on GitHub</a></p>
-    </section>
 
-    <section class="center-link">
-        <p><a href="index.html">Back to Home</a></p>
-    </section>
+<span class="k">resource</span> <span class="s">"aws_security_group"</span> <span class="s">"web_sg"</span> {
+  vpc_id = aws_vpc.main.id
 
-    <footer>
-        <p>&copy; 2025 Alan Haddad. All rights reserved.</p>
-    </footer>
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = <span class="s">"tcp"</span>
+    cidr_blocks = [<span class="s">"${chomp(data.http.my_ip.response_body)}/32"</span>] <span class="c"># SSH restricted to user's IP</span>
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = <span class="s">"tcp"</span>
+    cidr_blocks = [<span class="s">"0.0.0.0/0"</span>] <span class="c"># Allow HTTP from anywhere</span>
+  }
+}</code></pre>
+        </figure>
+
+        <h2>A logging role that can't do anything else</h2>
+        <p>The web server needs to push logs to S3, so it gets an instance role instead of stored access keys. The policy names the one bucket it can touch and nothing more.</p>
+        <figure class="code">
+          <div class="code-head"><span>main.tf</span><span>excerpt</span></div>
+<pre><code><span class="k">resource</span> <span class="s">"aws_iam_policy"</span> <span class="s">"s3_logging_policy"</span> {
+  name   = <span class="s">"S3LoggingPolicy"</span>
+  policy = jsonencode({
+    Version = <span class="s">"2012-10-17"</span>,
+    Statement = [{
+      Action   = [<span class="s">"s3:PutObject"</span>, <span class="s">"s3:GetObject"</span>, <span class="s">"s3:ListBucket"</span>],
+      Effect   = <span class="s">"Allow"</span>,
+      Resource = [
+        <span class="s">"arn:aws:s3:::${aws_s3_bucket.log_bucket.bucket}/*"</span>,
+        <span class="s">"arn:aws:s3:::${aws_s3_bucket.log_bucket.bucket}"</span>
+      ]
+    }]
+  })
+}</code></pre>
+        </figure>
+
+        <h2>What I'd tighten next</h2>
+        <p>Reading the script with my day-job eyes, these are the changes I'd make before calling it production-grade:</p>
+        <ul>
+          <li>Require IMDSv2 on every instance with <code>metadata_options { http_tokens = "required" }</code>, which blunts SSRF-style credential theft from the vulnerable web app.</li>
+          <li>Add an S3 public access block and replace the legacy bucket ACL with Object Ownership settings.</li>
+          <li>Drop <code>s3:GetObject</code> from the logging role, since the server only ever writes.</li>
+          <li>Pin the AWS and HTTP provider versions, and look up AMIs with a data source instead of placeholders.</li>
+        </ul>
+
+        <div class="next-up">
+          <p>Next</p>
+          <a href="detection.html">Detection engineering notes</a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>&copy; 2026 Alan Haddad</span>
+      <span>Hosted on GitHub Pages</span>
+    </div>
+  </footer>
 </body>
 </html>
-
