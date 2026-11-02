@@ -1,6 +1,6 @@
 # alan-haddad.github.io
 
-Personal site of Alan Haddad, cloud security engineer. Live at https://alan-haddad.github.io.
+Personal site of Alan Haddad, cloud security engineer. Live at https://alanhaddad.net (custom domain set in the repo's Pages settings).
 
 Plain HTML and CSS with one small optional script, no build step. Pushing to `main` deploys through the GitHub Pages workflow in `.github/workflows/static.yml`.
 
