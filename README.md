@@ -10,7 +10,7 @@ Plain HTML and CSS with one small optional script, no build step. Pushing to `ma
 | `network-map.html` | AWS security lab write-up |
 | `terraform.html` | How the lab is deployed with Terraform |
 | `detection.html` | Detection engineering notes |
-| `training-range.html` | Cyber training range write-up |
+| `cyber-range.html` | Offensive security range write-up |
 | `mcp-connector.html` | Claude MCP connector write-up |
 | `terraform-scripts/main.tf` | The lab's Terraform |
 | `assets/css/site.css` | All styles, with design tokens at the top |

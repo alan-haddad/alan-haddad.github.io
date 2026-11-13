@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Offensive security range | Alan Haddad</title>
+  <meta name="description" content="A self-contained offensive security range Alan Haddad built to practice the full attack chain: Kali and a private target network, running locally in Docker.">
+  <link rel="canonical" href="https://alanhaddad.net/cyber-range.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Offensive security range">
+  <meta property="og:description" content="A self-contained offensive security range Alan Haddad built to practice the full attack chain: Kali and a private target network, running locally in Docker.">
+  <meta property="og:url" content="https://alanhaddad.net/cyber-range.html">
+  <meta property="og:image" content="https://alanhaddad.net/images/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/mona-sans-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="wrap-wide">
+      <a class="wordmark" href="./">Alan Haddad</a>
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="./#work">Work</a></li>
+          <li class="opt"><a href="./#experience">Experience</a></li>
+          <li class="opt"><a href="./#credentials">Certifications</a></li>
+          <li><a href="./#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <header class="cs-head">
+      <div class="wrap">
+        <p class="crumb"><a href="./#work">Selected work</a></p>
+        <h1>Offensive security range</h1>
+        <p class="lede">A self-contained range I built to practice the full attack chain, from first scan to root, on a laptop and as often as I want.</p>
+        <dl class="cs-facts">
+          <div><dt>Runs on</dt><dd>Docker on Windows, Mac or Linux, fully local</dd></div>
+          <div><dt>Practice</dt><dd>Recon, pivoting, credential attacks, privilege escalation, packet analysis</dd></div>
+          <div><dt>Reps</dt><dd>One-command reset to a fresh lab with new flags and passwords</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <article class="prose">
+      <div class="wrap">
+        <figure class="panel">
+          <div class="diagram-scroll">
+<svg class="diagram" viewBox="0 0 664 444" role="img" aria-labelledby="rng-dt rng-dd" xmlns="http://www.w3.org/2000/svg">
+  <title id="rng-dt">Offensive security range architecture</title>
+  <desc id="rng-dd">Everything runs in Docker on one laptop. The browser opens a Kali desktop that sits on an edge network. Kali has no route to the internal network, which holds a router and three targets and has no internet access. The jumphost is the only machine on both networks, so every target is reached through an SSH tunnel.</desc>
+  <defs>
+    <marker id="rng-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+    <marker id="rng-ah-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah-attack" d="M0 0 L10 5 L0 10 z"/></marker>
+  </defs>
+
+  <rect class="zone" x="12" y="16" width="640" height="416" rx="10"/>
+  <text class="zone-label" x="28" y="40">Laptop, Docker</text>
+
+  <rect class="node node-ext" x="46" y="58" width="170" height="58" rx="6"/>
+  <text class="t" x="60" y="83">Browser</text>
+  <text class="st" x="60" y="102">Bound to localhost only</text>
+
+  <rect class="zone-inner" x="30" y="146" width="270" height="270" rx="8"/>
+  <text class="zone-label" x="46" y="170">Edge network</text>
+
+  <rect class="zone-inner" x="322" y="146" width="314" height="270" rx="8"/>
+  <text class="zone-label" x="338" y="170">Internal network, no internet</text>
+
+  <path class="edge" d="M131 116 L131 184" marker-end="url(#rng-ah)"/>
+  <text class="el" x="141" y="140">Desktop or terminal</text>
+
+  <rect class="node node-attack" x="46" y="188" width="170" height="64" rx="6"/>
+  <text class="t" x="60" y="215">Kali attack box</text>
+  <text class="st" x="60" y="236">Attack workstation</text>
+
+  <path class="edge edge-ctl" d="M216 220 L306 220"/>
+  <path class="edge" d="M300 214 L312 226 M312 214 L300 226"/>
+  <text class="el" x="228" y="240">No route</text>
+
+  <path class="edge edge-attack" d="M150 252 L232 316" marker-end="url(#rng-ah-a)"/>
+  <text class="el el-attack" x="62" y="292">SSH tunnel,</text>
+  <text class="el el-attack" x="62" y="307">proxychains</text>
+
+  <rect class="node" x="210" y="318" width="200" height="64" rx="6"/>
+  <text class="t" x="224" y="345">Jumphost</text>
+  <text class="st" x="224" y="366">The only box on both networks</text>
+
+  <rect class="node" x="458" y="184" width="164" height="50" rx="6"/>
+  <text class="t" x="472" y="206">Router</text>
+  <text class="st" x="472" y="224">Reached by ProxyJump</text>
+
+  <rect class="node" x="458" y="242" width="164" height="50" rx="6"/>
+  <text class="t" x="472" y="264">Target 1</text>
+  <text class="st" x="472" y="282">Legacy services</text>
+
+  <rect class="node" x="458" y="300" width="164" height="50" rx="6"/>
+  <text class="t" x="472" y="322">Target 2</text>
+  <text class="st" x="472" y="340">Web application</text>
+
+  <rect class="node" x="458" y="358" width="164" height="50" rx="6"/>
+  <text class="t" x="472" y="380">Target 3</text>
+  <text class="st" x="472" y="398">Privilege escalation</text>
+
+  <path class="edge" d="M410 340 L454 212" marker-end="url(#rng-ah)"/>
+  <path class="edge" d="M410 346 L454 270" marker-end="url(#rng-ah)"/>
+  <path class="edge" d="M410 350 L454 326" marker-end="url(#rng-ah)"/>
+  <path class="edge" d="M410 356 L454 380" marker-end="url(#rng-ah)"/>
+</svg>
+          </div>
+          <figcaption>Kali has no route to the targets. The jumphost is the only way in, so every tool has to run through a tunnel, which is the whole point.</figcaption>
+        </figure>
+
+        <h2>Why I built it</h2>
+        <p>Offensive skills fade without repetition. Scanning through a proxy, building tunnels, spraying credentials, moving files, escalating privileges and reading packet captures all come down to muscle memory. I wanted the whole chain on my own machine, ready whenever I had an hour, and different every time so I couldn't coast on remembered answers.</p>
+
+        <h2>What's in it</h2>
+        <ul>
+          <li><strong>A Kali desktop in the browser.</strong> One command starts the lab and opens Kali in a browser tab. A lighter terminal-only mode covers machines that struggle with the desktop.</li>
+          <li><strong>A small network to work through.</strong> A jumphost, a router and three targets, each built around a different technique, with eight objectives that chain from reconnaissance to root.</li>
+          <li><strong>Notes that persist.</strong> A notes folder in Kali is mounted from the host, so operator notes survive resets and rebuilds.</li>
+          <li><strong>Unlimited reps.</strong> A reset rebuilds every target with new flags and new passwords.</li>
+        </ul>
+
+        <h2>Forcing the pivot</h2>
+        <p>The topology makes the rules. Kali sits on an edge network, the targets sit on an internal network, and only the jumphost is on both. There is no shortcut around the tunnel, so reaching a target means actually building and using one. The internal network has no route to the internet, so nothing deliberately vulnerable can reach out, and the browser ports are bound to localhost.</p>
+
+        <h2>Fresh secrets every run</h2>
+        <p>Flags and passwords are generated randomly at first start and again on every reset. A small local script checks submitted flags against that run's values and tracks progress across objectives, with no server involved. Because every run is different, the only way to finish is to do the work again.</p>
+
+        <h2>Portable by design</h2>
+        <p>I wanted the range to run on any machine I sit down at, which took more engineering than the targets themselves.</p>
+        <ul>
+          <li><strong>A preflight check that tests, not assumes.</strong> It runs each dependency and checks the result. On Windows that matters: WSL's command always exists, and a placeholder Python opens the Microsoft Store instead of running.</li>
+          <li><strong>Matching launchers for every platform.</strong> Bash scripts on Mac and Linux, and double-click wrappers on Windows that run the PowerShell scripts without touching execution policy.</li>
+          <li><strong>Defensive defaults.</strong> Line endings are forced so Windows checkouts don't break the Linux containers, and a fixed project name means a second copy of the folder manages the same lab instead of colliding with it.</li>
+          <li><strong>Troubleshooting by error message.</strong> The README maps each error I'd expect to see, word for word, to an exact fix.</li>
+        </ul>
+
+        <h2>Tested like production</h2>
+        <p>Kali and Debian are rolling releases, so a lab that builds today can break next week. Continuous integration builds every image from a clean checkout on each change, boots Kali as a user would, stands up the real topology and asserts the isolation rules still hold: Kali can't reach the internal network, and the targets can't reach the internet. That test caught a subtle bug, where Docker quietly reserves the first address of each subnet for itself and collided with the router's planned address.</p>
+        <p>The base images are pinned to exact digests, so every build produces an identical environment, and security updates arrive as a deliberate, reviewable change instead of silent drift.</p>
+
+        <h2>What it reinforces</h2>
+        <p>Running the attacker's side keeps my defensive work honest: it's easier to write a detection for a tunnel or a credential spray once you've built a few yourself. Building the range also exercised the same instincts I use at work. Isolate what's dangerous, generate secrets instead of hard-coding them, and test the guarantees you depend on rather than assuming them.</p>
+
+        <div class="next-up">
+          <p>Back to</p>
+          <a href="./#work">All selected work</a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap-wide">
+      <span>Copyright &copy; 2026 Alan Haddad</span>
+      <span>Hosted on GitHub Pages</span>
+    </div>
+  </footer>
+</body>
+</html>
