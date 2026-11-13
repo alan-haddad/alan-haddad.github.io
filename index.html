@@ -153,6 +153,80 @@
             </div>
           </article>
 
+          <article class="work work-feature flip reveal">
+            <div>
+              <h3>Offensive security range</h3>
+              <p>A self-contained range I built to practice the full attack chain. Kali and a private target network run locally in Docker, and reaching anything means tunneling through a jumphost first. Every reset brings new flags and passwords.</p>
+              <ul class="stack" aria-label="Technologies">
+                <li>Docker</li><li>Kali</li><li>SSH tunneling</li><li>Python</li><li>PowerShell</li><li>Bash</li><li>GitHub Actions</li>
+              </ul>
+              <div class="links"><a class="chev" href="cyber-range.html">Read the write-up</a></div>
+            </div>
+            <div class="art-feature diagram-scroll">
+<svg class="diagram" viewBox="0 0 664 444" role="img" aria-labelledby="rng-dt rng-dd" xmlns="http://www.w3.org/2000/svg">
+  <title id="rng-dt">Offensive security range architecture</title>
+  <desc id="rng-dd">Everything runs in Docker on one laptop. The browser opens a Kali desktop that sits on an edge network. Kali has no route to the internal network, which holds a router and three targets and has no internet access. The jumphost is the only machine on both networks, so every target is reached through an SSH tunnel.</desc>
+  <defs>
+    <marker id="rng-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+    <marker id="rng-ah-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah-attack" d="M0 0 L10 5 L0 10 z"/></marker>
+  </defs>
+
+  <rect class="zone" x="12" y="16" width="640" height="416" rx="10"/>
+  <text class="zone-label" x="28" y="40">Laptop, Docker</text>
+
+  <rect class="node node-ext" x="46" y="58" width="170" height="58" rx="6"/>
+  <text class="t" x="60" y="83">Browser</text>
+  <text class="st" x="60" y="102">Bound to localhost only</text>
+
+  <rect class="zone-inner" x="30" y="146" width="270" height="270" rx="8"/>
+  <text class="zone-label" x="46" y="170">Edge network</text>
+
+  <rect class="zone-inner" x="322" y="146" width="314" height="270" rx="8"/>
+  <text class="zone-label" x="338" y="170">Internal network, no internet</text>
+
+  <path class="edge" d="M131 116 L131 184" marker-end="url(#rng-ah)"/>
+  <text class="el" x="141" y="140">Desktop or terminal</text>
+
+  <rect class="node node-attack" x="46" y="188" width="170" height="64" rx="6"/>
+  <text class="t" x="60" y="215">Kali attack box</text>
+  <text class="st" x="60" y="236">Attack workstation</text>
+
+  <path class="edge edge-ctl" d="M216 220 L306 220"/>
+  <path class="edge" d="M300 214 L312 226 M312 214 L300 226"/>
+  <text class="el" x="228" y="240">No route</text>
+
+  <path class="edge edge-attack" d="M150 252 L232 316" marker-end="url(#rng-ah-a)"/>
+  <text class="el el-attack" x="62" y="292">SSH tunnel,</text>
+  <text class="el el-attack" x="62" y="307">proxychains</text>
+
+  <rect class="node" x="210" y="318" width="200" height="64" rx="6"/>
+  <text class="t" x="224" y="345">Jumphost</text>
+  <text class="st" x="224" y="366">The only box on both networks</text>
+
+  <rect class="node" x="458" y="184" width="164" height="50" rx="6"/>
+  <text class="t" x="472" y="206">Router</text>
+  <text class="st" x="472" y="224">Reached by ProxyJump</text>
+
+  <rect class="node" x="458" y="242" width="164" height="50" rx="6"/>
+  <text class="t" x="472" y="264">Target 1</text>
+  <text class="st" x="472" y="282">Legacy services</text>
+
+  <rect class="node" x="458" y="300" width="164" height="50" rx="6"/>
+  <text class="t" x="472" y="322">Target 2</text>
+  <text class="st" x="472" y="340">Web application</text>
+
+  <rect class="node" x="458" y="358" width="164" height="50" rx="6"/>
+  <text class="t" x="472" y="380">Target 3</text>
+  <text class="st" x="472" y="398">Privilege escalation</text>
+
+  <path class="edge" d="M410 340 L454 212" marker-end="url(#rng-ah)"/>
+  <path class="edge" d="M410 346 L454 270" marker-end="url(#rng-ah)"/>
+  <path class="edge" d="M410 350 L454 326" marker-end="url(#rng-ah)"/>
+  <path class="edge" d="M410 356 L454 380" marker-end="url(#rng-ah)"/>
+</svg>
+            </div>
+          </article>
+
           <article class="work reveal">
             <h3>Detection engineering notes</h3>
             <p>Patterns I use to turn AWS logs into alerts worth acting on, from MFA-less console sign-ins that account for SSO to GuardDuty triage backed by flow logs.</p>
