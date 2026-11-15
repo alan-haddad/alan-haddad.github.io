@@ -227,6 +227,79 @@
             </div>
           </article>
 
+          <article class="work work-feature reveal">
+            <div>
+              <h3>DFIR interview range</h3>
+              <p>A free range for practicing SOC and incident response interviews. Every seed generates a fresh, fully synthetic incident to walk through out loud, followed by a debrief on what a strong answer sounds like. It runs entirely in the browser, and nothing leaves it.</p>
+              <ul class="stack" aria-label="Technologies">
+                <li>TypeScript</li><li>Sysmon</li><li>Email forensics</li><li>Python</li><li>Playwright</li><li>GitHub Actions</li>
+              </ul>
+              <div class="links"><a class="chev" href="/dfir-range/">Try the range</a><a class="chev" href="https://github.com/alan-haddad/dfir-range">See the source</a></div>
+            </div>
+            <div class="art-feature diagram-scroll">
+<svg class="diagram" viewBox="0 0 664 456" role="img" aria-labelledby="dfir-dt dfir-dd" xmlns="http://www.w3.org/2000/svg">
+  <title id="dfir-dt">DFIR interview range flow</title>
+  <desc id="dfir-dd">Everything runs in the browser. Each seed generates a synthetic incident: a phishing email, a downloaded file with Mark-of-the-Web, an encoded PowerShell command, an obfuscated download cradle and an XOR-protected config. The candidate walks through the evidence out loud, answers structured questions checked by the site, then reviews a rubric debrief.</desc>
+  <defs>
+    <marker id="dfir-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+    <marker id="dfir-ah-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah-attack" d="M0 0 L10 5 L0 10 z"/></marker>
+  </defs>
+
+  <rect class="zone" x="12" y="16" width="640" height="432" rx="10"/>
+  <text class="zone-label" x="28" y="40">Browser, no backend</text>
+
+  <rect class="zone-inner" x="30" y="56" width="300" height="376" rx="8"/>
+  <text class="zone-label" x="46" y="80">Synthetic evidence, new every seed</text>
+
+  <rect class="node node-attack" x="48" y="92" width="264" height="44" rx="6"/>
+  <text class="t" x="62" y="111">Phishing email</text>
+  <text class="st" x="62" y="127">Spoofed From, DMARC fail</text>
+  <path class="edge edge-attack" d="M180 136 L180 154" marker-end="url(#dfir-ah-a)"/>
+
+  <rect class="node node-attack" x="48" y="158" width="264" height="44" rx="6"/>
+  <text class="t" x="62" y="177">invoice.pdf.exe</text>
+  <text class="st" x="62" y="193">Mark-of-the-Web, ZoneId=3</text>
+  <path class="edge edge-attack" d="M180 202 L180 220" marker-end="url(#dfir-ah-a)"/>
+
+  <rect class="node node-attack" x="48" y="224" width="264" height="44" rx="6"/>
+  <text class="t" x="62" y="243">Encoded PowerShell</text>
+  <text class="st" x="62" y="259">Base64 of UTF-16LE</text>
+  <path class="edge edge-attack" d="M180 268 L180 286" marker-end="url(#dfir-ah-a)"/>
+
+  <rect class="node node-attack" x="48" y="290" width="264" height="44" rx="6"/>
+  <text class="t" x="62" y="309">Download cradle</text>
+  <text class="st" x="62" y="325">Obfuscated IPv4 host</text>
+  <path class="edge edge-attack" d="M180 334 L180 352" marker-end="url(#dfir-ah-a)"/>
+
+  <rect class="node node-attack" x="48" y="356" width="264" height="44" rx="6"/>
+  <text class="t" x="62" y="375">Malware config</text>
+  <text class="st" x="62" y="391">C2 URL behind a one-byte XOR key</text>
+
+  <rect class="zone-inner" x="352" y="56" width="282" height="376" rx="8"/>
+  <text class="zone-label" x="368" y="80">Candidate</text>
+
+  <path class="edge" d="M312 114 L366 114" marker-end="url(#dfir-ah)"/>
+
+  <rect class="node node-ext" x="370" y="92" width="246" height="52" rx="6"/>
+  <text class="t" x="384" y="114">Walk me through it</text>
+  <text class="st" x="384" y="132">Out loud, optionally timed</text>
+  <path class="edge" d="M493 144 L493 182" marker-end="url(#dfir-ah)"/>
+
+  <rect class="node" x="370" y="186" width="246" height="52" rx="6"/>
+  <text class="t" x="384" y="208">Structured questions</text>
+  <text class="st" x="384" y="226">Checked in the browser</text>
+  <path class="edge" d="M493 238 L493 276" marker-end="url(#dfir-ah)"/>
+
+  <rect class="node" x="370" y="280" width="246" height="52" rx="6"/>
+  <text class="t" x="384" y="302">Rubric debrief</text>
+  <text class="st" x="384" y="320">Weak, solid and strong answers</text>
+
+  <text class="st" x="370" y="380">CI proves every seed is solvable</text>
+  <text class="st" x="370" y="398">and scans for real IPs and domains.</text>
+</svg>
+            </div>
+          </article>
+
           <article class="work reveal">
             <h3>Detection engineering notes</h3>
             <p>Patterns I use to turn AWS logs into alerts worth acting on, from MFA-less console sign-ins that account for SSO to GuardDuty triage backed by flow logs.</p>
