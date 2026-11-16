@@ -41,7 +41,7 @@
         <p class="lede">One Terraform file stands up the whole <a href="network-map.html">security lab</a>: network, instances, logging and the permissions between them.</p>
         <dl class="cs-facts">
           <div><dt>Provisions</dt><dd>VPC, subnet, routing, 3 EC2 instances, S3 log bucket</dd></div>
-          <div><dt>Access control</dt><dd>Security groups pinned to the operator's IP, scoped IAM role</dd></div>
+          <div><dt>Access control</dt><dd>Security groups pinned to the operator's IP, write-only IAM role</dd></div>
           <div><dt>Source</dt><dd><a href="https://github.com/alan-haddad/alan-haddad.github.io/blob/main/terraform-scripts/main.tf">main.tf on GitHub</a></dd></div>
         </dl>
       </div>
@@ -61,59 +61,75 @@
         </ul>
 
         <h2>Locking access to the operator</h2>
-        <p>Rather than hard-coding an IP, the script looks up the public address of whoever runs <code>terraform apply</code> and allows SSH from that single <code>/32</code>. The Nessus UI on port 8834 gets the same treatment. Only the target's HTTP port is open to the internet, because that's the thing being attacked.</p>
+        <p>Rather than hard-coding an IP, the script looks up the public address of whoever runs <code>terraform apply</code> and allows SSH from that single <code>/32</code>. The Nessus UI on port 8834 gets the same treatment. The target is deliberately vulnerable, so it is never open to the internet: only the operator, the scanner and the attack platform can reach it.</p>
         <figure class="code">
           <div class="code-head"><span>main.tf</span><span>excerpt</span></div>
-<pre><code><span class="k">data</span> <span class="s">"http"</span> <span class="s">"my_ip"</span> {
-  url = <span class="s">"https://checkip.amazonaws.com/"</span>
+<pre><code><span class="k">locals</span> {
+  admin_cidr = coalesce(var.admin_cidr, <span class="s">"${chomp(data.http.my_ip.response_body)}/32"</span>)
 }
 
 <span class="k">resource</span> <span class="s">"aws_security_group"</span> <span class="s">"web_sg"</span> {
   vpc_id = aws_vpc.main.id
 
   ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = <span class="s">"tcp"</span>
-    cidr_blocks = [<span class="s">"${chomp(data.http.my_ip.response_body)}/32"</span>] <span class="c"># SSH restricted to user's IP</span>
-  }
-
-  ingress {
+    description = <span class="s">"HTTP from the operator"</span>
     from_port   = 80
     to_port     = 80
     protocol    = <span class="s">"tcp"</span>
-    cidr_blocks = [<span class="s">"0.0.0.0/0"</span>] <span class="c"># Allow HTTP from anywhere</span>
+    cidr_blocks = [local.admin_cidr]
+  }
+
+  ingress {
+    description     = <span class="s">"Any TCP port from the scanner and the attack platform"</span>
+    from_port       = 0
+    to_port         = 65535
+    protocol        = <span class="s">"tcp"</span>
+    security_groups = [aws_security_group.nessus_sg.id, aws_security_group.attack_sg.id]
   }
 }</code></pre>
         </figure>
 
         <h2>A logging role that can't do anything else</h2>
-        <p>The web server needs to push logs to S3, so it gets an instance role instead of stored access keys. The policy names the one bucket it can touch and nothing more.</p>
+        <p>The web server needs to push logs to S3, so it gets an instance role instead of stored access keys. The policy names the one bucket it can touch, and it can write and list but never read a log back.</p>
         <figure class="code">
           <div class="code-head"><span>main.tf</span><span>excerpt</span></div>
 <pre><code><span class="k">resource</span> <span class="s">"aws_iam_policy"</span> <span class="s">"s3_logging_policy"</span> {
   name   = <span class="s">"S3LoggingPolicy"</span>
   policy = jsonencode({
-    Version = <span class="s">"2012-10-17"</span>,
-    Statement = [{
-      Action   = [<span class="s">"s3:PutObject"</span>, <span class="s">"s3:GetObject"</span>, <span class="s">"s3:ListBucket"</span>],
-      Effect   = <span class="s">"Allow"</span>,
-      Resource = [
-        <span class="s">"arn:aws:s3:::${aws_s3_bucket.log_bucket.bucket}/*"</span>,
-        <span class="s">"arn:aws:s3:::${aws_s3_bucket.log_bucket.bucket}"</span>
-      ]
-    }]
+    Version = <span class="s">"2012-10-17"</span>
+    Statement = [
+      {
+        Sid      = <span class="s">"WriteLogs"</span>
+        Effect   = <span class="s">"Allow"</span>
+        Action   = [<span class="s">"s3:PutObject"</span>]
+        Resource = <span class="s">"${aws_s3_bucket.log_bucket.arn}/*"</span>
+      },
+      {
+        <span class="c"># `aws s3 sync` lists the destination to decide what to upload.</span>
+        Sid      = <span class="s">"ListForSync"</span>
+        Effect   = <span class="s">"Allow"</span>
+        Action   = [<span class="s">"s3:ListBucket"</span>]
+        Resource = aws_s3_bucket.log_bucket.arn
+      }
+    ]
   })
 }</code></pre>
         </figure>
 
-        <h2>What I'd tighten next</h2>
-        <p>Reading the script with my day-job eyes, these are the changes I'd make before calling it production-grade:</p>
+        <h2>Hardening the defaults</h2>
+        <p>The first version of this script worked, but it leaned on defaults I wouldn't accept at work. These are the changes I made:</p>
         <ul>
-          <li>Require IMDSv2 on every instance with <code>metadata_options { http_tokens = "required" }</code>, which blunts SSRF-style credential theft from the vulnerable web app.</li>
-          <li>Add an S3 public access block and replace the legacy bucket ACL with Object Ownership settings.</li>
-          <li>Drop <code>s3:GetObject</code> from the logging role, since the server only ever writes.</li>
-          <li>Pin the AWS and HTTP provider versions, and look up AMIs with a data source instead of placeholders.</li>
+          <li>Every instance requires IMDSv2 with <code>metadata_options { http_tokens = "required" }</code>, which blunts SSRF-style credential theft from the vulnerable web app.</li>
+          <li>The log bucket has a public access block, bucket-owner-enforced ownership in place of the legacy ACL, default encryption, and a policy that refuses requests without TLS.</li>
+          <li>The logging role lost <code>s3:GetObject</code>, since the server only ever writes.</li>
+          <li>Provider versions are pinned, and the AMI comes from a data source instead of a placeholder.</li>
+          <li>Root volumes are encrypted, and a GitHub Actions check runs <code>terraform fmt</code> and <code>terraform validate</code> on every change.</li>
+        </ul>
+
+        <h2>What I'd tighten next</h2>
+        <ul>
+          <li>Move the scanner and the target into a private subnet, and reach them through Systems Manager Session Manager instead of SSH.</li>
+          <li>Turn on VPC Flow Logs, so the lab's network traffic lands in the SIEM alongside the web logs.</li>
         </ul>
 
         <div class="next-up">
