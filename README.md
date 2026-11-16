@@ -13,6 +13,7 @@ Plain HTML and CSS with one small optional script, no build step. Pushing to `ma
 | `cyber-range.html` | Offensive security range write-up |
 | `mcp-connector.html` | Claude MCP connector write-up |
 | `terraform-scripts/main.tf` | The lab's Terraform |
+| `.github/workflows/terraform.yml` | Runs `terraform fmt` and `terraform validate` when the Terraform changes |
 | `assets/css/site.css` | All styles, with design tokens at the top |
 | `assets/js/reveal.js` | Scroll-in animation (optional; the page works without it) |
 | `assets/fonts/` | Self-hosted Mona Sans and Geist Mono (SIL OFL, see `OFL.txt`) |
